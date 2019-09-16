@@ -1,0 +1,4 @@
+User-agent: *
+Disallow: /c/
+Disallow: /i/
+Disallow: /cgi-bin/
