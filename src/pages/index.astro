@@ -1,17 +1,45 @@
 ---
+// src/pages/index.astro
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
 
+const posts = (await getCollection('blog'))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 2);
 ---
+<Layout
+  title="Gareth Parris"
+  description="Director of Software Engineering leading teams around observability, incident management and platform reliability."
+>
+  <section style="display: flex; gap: var(--space-3); align-items: center; flex-wrap: wrap; padding: var(--space-4) 0;">
+    <div style="flex: 1; min-width: 260px;">
+      <p style="font-family: var(--font-mono); color: var(--color-accent-teal); font-size: 0.8rem; margin-bottom: var(--space-1);">
+        // director.software_engineering @ brightsign
+      </p>
+      <h1>Gareth Parris</h1>
+      <p>
+        Director of Software Engineering. I build and lead teams around observability,
+        incident management and platform reliability, and I'm still hands-on in the codebase.
+      </p>
+    </div>
+    <div style="flex: 0 0 220px; background: var(--color-bg-raised); border: 1px solid var(--color-border); border-radius: var(--radius); padding: var(--space-2);">
+      <p style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--color-text-dim); margin: 0 0 4px;">CURRENT FOCUS</p>
+      <p style="font-family: var(--font-mono); color: var(--color-accent-amber); font-size: 0.9rem; margin: 0 0 4px;">
+        Kubernetes cost optimisation
+      </p>
+      <p style="font-size: 0.75rem; color: var(--color-text-dim); margin: 0;">3 teams &middot; BrightSign Control Plus</p>
+    </div>
+  </section>
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+  <section>
+    <h2>Latest from the blog</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-2);">
+      {posts.map((post) => (
+        <a href={`/blog/${post.slug}`} style="display: block; background: var(--color-bg-raised); border: 1px solid var(--color-border); border-radius: var(--radius); padding: var(--space-2); text-decoration: none; color: var(--color-text);">
+          <h3 style="margin: 0 0 4px; font-size: 0.95rem;">{post.data.title}</h3>
+          <span class="tag">{post.data.category}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</Layout>
