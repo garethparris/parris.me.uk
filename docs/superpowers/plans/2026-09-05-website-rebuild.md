@@ -138,11 +138,40 @@ Edit the `"scripts"` block to include:
 Run: `npm run build`
 Expected: succeeds, produces a `dist/` directory with the default template's `index.html`.
 
-- [ ] **Step 6: Commit**
+- [ ] **Step 6: Add `vitest.config.ts` so `astro:content`/`astro:assets` resolve in tests**
+
+Every later test task imports something that transitively imports `astro:content` (a virtual module Astro's Vite plugin provides) — either directly (content collection schemas) or via an `.astro` component under test (Astro's experimental Container API). Plain `vitest run` cannot resolve virtual modules on its own; Astro's documented fix is to load Vitest's config through Astro's own Vite config:
+
+```ts
+// vitest.config.ts
+import { getViteConfig } from 'astro/config';
+
+export default getViteConfig({
+  test: {},
+});
+```
+
+Without this file, every test task from Task 3 onward fails at import time with a "Cannot resolve 'astro:content'" (or similar) error — add it now so that doesn't happen.
+
+- [ ] **Step 7: Verify a trivial test runs under this config**
+
+Create a throwaway `test/_smoke.test.ts`:
+
+```ts
+import { describe, it, expect } from 'vitest';
+describe('smoke', () => {
+  it('runs', () => { expect(1 + 1).toBe(2); });
+});
+```
+
+Run: `npm run test`
+Expected: PASS (1 test). Then delete `test/_smoke.test.ts` — it was only to confirm the Vitest+Astro config works before any real tests depend on it.
+
+- [ ] **Step 8: Commit**
 
 ```bash
-git add package.json package-lock.json astro.config.mjs tsconfig.json .node-version
-git commit -m "Scaffold Astro project with Cloudflare adapter"
+git add package.json package-lock.json astro.config.mjs tsconfig.json .node-version vitest.config.ts
+git commit -m "Scaffold Astro project with Cloudflare adapter and Vitest config"
 ```
 
 ---
@@ -385,17 +414,12 @@ This is a compile-time schema, so the meaningful test is that a minimal valid fi
 ```ts
 // test/content-config.test.ts
 import { describe, it, expect } from 'vitest';
-import { z } from 'astro:content';
+import { collections } from '../src/content/config';
 
-// Mirror of the resume schema's role entry, imported indirectly isn't possible
-// for a zod schema defined with defineCollection, so we re-assert the shape
-// contract here against a fixture — this is what every resume.md role must satisfy.
-const roleSchema = z.object({
-  company: z.string(),
-  tier: z.enum(['current', 'earlier']),
-  titles: z.array(z.object({ title: z.string(), dates: z.string() })),
-  body: z.string(),
-});
+// Import the real schema (Task 1's vitest.config.ts makes astro:content
+// resolvable here) rather than duplicating its shape — this is what every
+// resume.md role must satisfy.
+const roleSchema = collections.resume.schema.shape.roles.element;
 
 describe('resume role schema', () => {
   it('accepts a valid role entry', () => {
@@ -884,7 +908,6 @@ const { groups } = Astro.props;
 ```astro
 ---
 // src/components/RoleEntry.astro
-import { render } from 'astro:content';
 interface Props {
   role: {
     company: string;
