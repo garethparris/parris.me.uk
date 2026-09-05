@@ -343,7 +343,7 @@ git commit -m "Add design tokens and base layout"
 ### Task 3: Content collection schemas
 
 **Files:**
-- Create: `src/content/config.ts`
+- Create: `src/content.config.ts` (moved from the plan's originally-specified `src/content/config.ts`: Astro 7 requires the top-level location)
 - Test: `test/content-config.test.ts`
 
 **Interfaces:**
@@ -353,7 +353,7 @@ git commit -m "Add design tokens and base layout"
 - [ ] **Step 1: Write the collection schemas**
 
 ```ts
-// src/content/config.ts
+// src/content.config.ts
 import { defineCollection, z } from 'astro:content';
 
 const resume = defineCollection({
@@ -452,7 +452,7 @@ Expected: PASS (2 tests)
 - [ ] **Step 4: Commit**
 
 ```bash
-git add src/content/config.ts test/content-config.test.ts
+git add src/content.config.ts test/content-config.test.ts
 git commit -m "Add resume and blog content collection schemas"
 ```
 
@@ -1807,7 +1807,7 @@ private vault's `CV.md` — not a live integration. When the CV changes, ask Cla
 ## Adding a blog post
 
 Add a new Markdown file under `src/content/blog/`, following the frontmatter shape in
-`src/content/config.ts` (title, description, pubDate, category, tags, heroImage). Put
+`src/content.config.ts` (title, description, pubDate, category, tags, heroImage). Put
 any images in `public/images/blog/`.
 
 ## Deployment (manual, one-time setup)
