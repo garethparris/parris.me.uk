@@ -3,6 +3,7 @@
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/BlogCard.astro';
+import { getPostSlug } from '../../lib/blog';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
@@ -13,7 +14,7 @@ const posts = (await getCollection('blog')).sort(
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-2);">
     {posts.map((post) => (
       <BlogCard
-        slug={post.slug}
+        slug={getPostSlug(post)}
         title={post.data.title}
         category={post.data.category}
         heroImage={post.data.heroImage}
