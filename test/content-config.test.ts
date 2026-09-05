@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { collections } from '../src/content.config';
 
 // Import the real schema (Task 1's vitest.config.ts makes astro:content
-// resolvable here) rather than duplicating its shape — this is what every
+// resolvable here) rather than duplicating its shape: this is what every
 // resume.md role must satisfy.
 const roleSchema = collections.resume.schema.shape.roles.element;
 
