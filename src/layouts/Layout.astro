@@ -1,0 +1,35 @@
+---
+// src/layouts/Layout.astro
+interface Props {
+  title: string;
+  description: string;
+}
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+  </head>
+  <body>
+    <header class="container" style="padding-top: var(--space-2); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.85rem;">
+      <a href="/" style="color: var(--color-text); text-decoration: none;">parris.me.uk</a>
+      <nav>
+        <a href="/resume">Resume</a> &nbsp;
+        <a href="/blog">Blog</a> &nbsp;
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+    <main class="container">
+      <slot />
+    </main>
+    <footer class="container" style="padding: var(--space-4) 0; color: var(--color-text-dim); font-size: 0.8rem;">
+      <p>&copy; {new Date().getFullYear()} Gareth Parris</p>
+    </footer>
+  </body>
+</html>
