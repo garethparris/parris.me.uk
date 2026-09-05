@@ -1,0 +1,72 @@
+---
+// src/pages/resume.astro
+import { getCollection } from 'astro:content';
+import { marked } from 'marked';
+import Layout from '../layouts/Layout.astro';
+import SkillTags from '../components/SkillTags.astro';
+import RoleEntry from '../components/RoleEntry.astro';
+
+const [resume] = await getCollection('resume');
+const { summary, leadership, education, awards, certifications, skillGroups, roles, interests } = resume.data;
+
+const currentRoles = roles.filter((r) => r.tier === 'current');
+const earlierRoles = roles.filter((r) => r.tier === 'earlier');
+---
+<Layout title="Resume | Gareth Parris" description={summary}>
+  <h1>Resume</h1>
+
+  <section>
+    <h2>Summary</h2>
+    <p>{summary}</p>
+  </section>
+
+  <section>
+    <h2>Leadership &amp; AI-Augmented Engineering</h2>
+    <p>{leadership}</p>
+  </section>
+
+  <section>
+    <h2>Core Skills</h2>
+    <SkillTags groups={skillGroups} />
+  </section>
+
+  <section>
+    <h2>Career</h2>
+    {currentRoles.map((role) => (
+      <RoleEntry role={role} html={marked.parse(role.body) as string} />
+    ))}
+    <details>
+      <summary style="cursor: pointer; font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-dim); padding: var(--space-1) 0;">
+        Earlier Career ({earlierRoles.length} roles, 1993-2021)
+      </summary>
+      {earlierRoles.map((role) => (
+        <RoleEntry role={role} html={marked.parse(role.body) as string} />
+      ))}
+    </details>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <p>{education}</p>
+  </section>
+
+  <section>
+    <h2>Awards</h2>
+    <ul>{awards.map((a) => <li>{a}</li>)}</ul>
+  </section>
+
+  <section>
+    <h2>Certifications</h2>
+    <ul>{certifications.map((c) => <li>{c}</li>)}</ul>
+  </section>
+
+  <section>
+    <h2>Interests</h2>
+    {interests.map((i) => (
+      <div>
+        {i.heading && <h4>{i.heading}</h4>}
+        <p>{i.body}</p>
+      </div>
+    ))}
+  </section>
+</Layout>

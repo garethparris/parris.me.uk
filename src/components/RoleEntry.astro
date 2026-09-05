@@ -1,0 +1,21 @@
+---
+// src/components/RoleEntry.astro
+interface Props {
+  role: {
+    company: string;
+    titles: Array<{ title: string; dates: string }>;
+  };
+  html: string;
+}
+const { role, html } = Astro.props;
+---
+<div style="border-left: 2px solid var(--color-accent-amber); padding-left: var(--space-2); margin-bottom: var(--space-3);">
+  <h3 style="margin: 0 0 4px;">{role.company}</h3>
+  {role.titles.map((t) => (
+    <div style="font-size: 0.85rem; margin-bottom: 2px;">
+      <strong>{t.title}</strong>
+      <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-dim);"> &middot; {t.dates}</span>
+    </div>
+  ))}
+  <div set:html={html} />
+</div>
