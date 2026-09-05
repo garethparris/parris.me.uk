@@ -9,6 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "pretest": "astro sync",
     "test": "vitest run",
     "check": "astro check"
   },
