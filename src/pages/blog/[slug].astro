@@ -1,0 +1,26 @@
+---
+// src/pages/blog/[slug].astro
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.md$/, '') },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+<Layout title={`${post.data.title} | Gareth Parris`} description={post.data.description}>
+  <img src={post.data.heroImage} alt={post.data.title} style="width: 100%; max-height: 320px; object-fit: cover; border-radius: var(--radius);" />
+  <h1>{post.data.title}</h1>
+  <div style="margin-bottom: var(--space-2);">
+    {post.data.tags.map((tag: string) => <span class="tag" style="margin-right: 4px;">{tag}</span>)}
+  </div>
+  <article>
+    <Content />
+  </article>
+</Layout>

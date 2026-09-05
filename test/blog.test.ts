@@ -26,3 +26,29 @@ describe('Blog index', () => {
     expect(dates).toEqual([...dates].sort((a, b) => b - a));
   });
 });
+
+import BlogPost, { getStaticPaths } from '../src/pages/blog/[slug].astro';
+
+describe('Blog post page', () => {
+  it('generates one static path per post', async () => {
+    const paths = await getStaticPaths();
+    expect(paths).toHaveLength(4);
+    expect(paths.map((p) => p.params.slug).sort()).toEqual(
+      ['drum-award', 'mercedes', 'mit-wall', 'server-rack'].sort()
+    );
+  });
+
+  it('renders a post with its tags and content', async () => {
+    const container = await AstroContainer.create();
+    const paths = await getStaticPaths();
+    const serverRackPath = paths.find((p) => p.params.slug === 'server-rack')!;
+
+    const result = await container.renderToString(BlogPost, {
+      props: serverRackPath.props,
+    });
+
+    expect(result).toContain('Custom SoHo Server Rack with Ubiquity Unifi');
+    expect(result).toContain('UniFi Dream Machine Pro');
+    expect(result).toContain('Ubiquity');
+  });
+});
