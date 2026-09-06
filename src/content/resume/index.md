@@ -11,7 +11,8 @@ summary: >-
   (database crisis recovery, Kubernetes migration, SOC 2 compliance, SSO/MFA)
   as much as by team leadership. Stays directly in the codebase and
   infrastructure rather than managing from a distance, and has built AI
-  tooling (including an AI-assisted live diagnostics workflow via Grafana MCP)
+  tooling (including an AI-assisted live diagnostics workflow via Grafana MCP
+  and Kubernetes MCP)
   directly into day-to-day engineering and delivery, not just as a talking
   point. Expertise spans full-stack software development, cloud-native
   architecture, observability engineering, and incident management.
@@ -21,8 +22,9 @@ summary: >-
 leadership: >-
   A Director who still ships. Alongside leading three teams, personally:
   co-develops production code with AI assistance (e.g. porting critical
-  certificate-management API components); built and uses Grafana MCP for
-  AI-assisted live log/metric incident diagnosis; and runs internal AI
+  certificate-management API components); built and uses Grafana MCP and
+  Kubernetes MCP for AI-assisted live diagnostics across logs, metrics and
+  cluster state; and runs internal AI
   side-projects exploring new product opportunities for the business. As AI
   reshapes what engineering leadership requires, staying hands-on has become
   a competitive advantage rather than a distraction from the job: directors
@@ -41,7 +43,7 @@ skillGroups:
   - label: "Leadership & Strategy"
     items: ["Software Engineering Management", "Engineering Leadership", "Technical Strategy", "Cross-functional Team Leadership", "People Management", "Incident Management"]
   - label: "Cloud & Platform"
-    items: ["Cloud-Native Architecture", "AWS (EKS, Control Tower)", "Azure", "Kubernetes (Helm, Minikube)", "Terraform", "Ansible", "Docker", "Docker Compose"]
+    items: ["Cloud-Native Architecture", "AWS (EKS, Control Tower)", "Azure", "Kubernetes (Helm, Minikube, Kubernetes MCP)", "Terraform", "Ansible", "Docker", "Docker Compose"]
   - label: "Observability & Incident Management"
     items: ["Software Observability", "OpenTelemetry", "Grafana (incl. Grafana MCP)", "Prometheus", "Loki", "Alertmanager", "PagerDuty", "OpsGenie", "Incident.io", "on-call/escalation design", "blameless postmortems"]
   - label: "Security & Compliance"
@@ -55,7 +57,7 @@ skillGroups:
   - label: "Databases"
     items: ["Database Design and Administration", "Microsoft SQL Server", "T-SQL", "PostgreSQL", "MySQL", "SQLite"]
   - label: "AI-Assisted Engineering"
-    items: ["GitHub Copilot", "Claude Code", "Claude", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP)", "internal AI tooling/side-projects"]
+    items: ["GitHub Copilot", "Claude Code", "Claude", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP, Kubernetes MCP)", "internal AI tooling/side-projects"]
 roles:
   - company: "BrightSign"
     tier: current
@@ -74,7 +76,7 @@ roles:
       Manages 8 direct reports across the three teams (Cloud: 4, including engineers based in Ukraine; Platform: 2 direct based in Ukraine and Poland, plus 2 indirect reports via a consultancy engagement; Client: 2, with a third planned pending budget approval), leading daily across UK, Poland, Ukraine and US Pacific time zones.
 
       - Led the technical response to a database performance and scaling risk: drove analysis of a planned AWS PostgreSQL migration, and when it proved infeasible due to code coupling, pivoted to vertically scaling and re-tuning the existing MS SQL Server estate with a hot-standby, avoiding a six-figure Enterprise licensing cost and buying at least a year of stability to fund a wider refactor, later followed by hiring a dedicated DBA to further improve performance
-      - Built the company's first observability stack (Prometheus, Grafana, Loki, Alertmanager, PagerDuty/OpsGenie) ahead of a dedicated DevOps hire, later evolving it into an AI-assisted live diagnostics workflow using Grafana MCP
+      - Built the company's first observability stack (Prometheus, Grafana, Loki, Alertmanager, PagerDuty/OpsGenie) ahead of a dedicated DevOps hire, later evolving it into an AI-assisted live diagnostics workflow using Grafana MCP and Kubernetes MCP
       - Migrated the BSN.Cloud platform to .NET 8 and later .NET 10, and onto Kubernetes via AWS EKS, materially reducing AWS infrastructure costs
       - Delivered a new SSO/MFA authentication system and led the platform to SOC 2 Type II compliance, unlocking enterprise customer revenue
       - Led a full architectural remodel of BSN.Cloud (dependency-injection refactor, multi-account AWS Control Tower setup, and a provisioning system rewrite), enabling BrightSign Control Plus, a new device management revenue stream launched August 2026
