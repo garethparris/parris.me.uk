@@ -142,14 +142,7 @@ roles:
     body: |
       Britdaq is a financial services company, offering share matching facilities for private companies and investors, a live company share registrar service, company secretarial services via Companies House, and an online discussion forum for investors.
 
-      After the 3-year contract mainly away from home with McLaren, took up a short-term contract with Britdaq again to allow working from home and spending more time with family.
-
-      Tasks included:
-
-      - Migrating away from the Microsoft SQL Server backend database platform to the open source PostgreSQL database. This allowed Britdaq to reduce their running costs as a commercial database licence was no longer required
-      - Establishing an MVC framework to allow Britdaq to migrate from the legacy ASP.NET Webforms to ASP.NET MVC. This predominately involved re-writing the ASP.NET Webforms Membership and Role providers to use the newer ASP.NET Identity API with OWIN Middleware. Installing and configuring development and production PostgreSQL databases and modifying the database schemas appropriately
-      - Investigating and implementing a test platform on Amazon Web Services to move Britdaq off an unmanaged Windows 2012 server platform in order to simplify the day-to-day backend management and to further reduce running costs
-      - Implementing unit, integration and system tests where possible to cover the migration of all application tiers to the new framework. This involved using NUnit, NCrunch, Fluent Assertions and NSubstitute
+      A short-term return to Britdaq after a 3-year contract mainly away from home with McLaren, taken to work from home and spend more time with family. Migrated the backend from Microsoft SQL Server to PostgreSQL, moved the legacy ASP.NET Webforms membership and role providers to the newer ASP.NET Identity API with OWIN Middleware, and began moving hosting off an unmanaged Windows 2012 server to AWS, with NUnit, NCrunch, Fluent Assertions and NSubstitute test coverage across the migration.
   - company: "McLaren Applied Technologies"
     tier: earlier
     titles:
@@ -173,189 +166,20 @@ roles:
       - title: "Technical Architect / Team Lead / Senior Developer (Contract)"
         dates: "Aug 2011 - Jun 2014"
     body: |
-      See the Britdaq Ltd entry above for a company description. Roles consisted of:
+      See the Britdaq Ltd entry above for a company description.
 
-      - Re-design and re-development of the prototype Britdaq website to make it suitable for release to the general public. This involved re-writing the majority of the system, splitting it into an n-tier design and extracting into separate components where appropriate. All development was in C# using .NET 4.0, with MS SQL Server 2008, ASP.NET, Silverlight 4, RIA Services and Entity Framework. Later removed the Silverlight project and replaced with pure ASP.NET 4.5 website
-      - Development of a secure and robust public facing website that provided a trade matching engine, a user forum, and a client interface to Companies House XML Gateway for the submission of all UK Company legal documents (e.g. Annual Returns, Director Appointments)
-      - All development utilised the AGILE SCRUM methodology to deliver regular incremental updates to the system
-      - Creating a build and unit test environment for the development process using NUnit and Jenkins-CI
-      - Set-up and maintenance of live, test and UAT servers hosted by 3rd party providers. Installation of the software on the servers, along with monitoring and performance tuning where necessary
-      - General handling of all I.T. administration functions within the company such as supporting the users' email accounts, Internet access and hardware requirements
-  - company: "Royal Bank of Scotland"
+      Led the re-design and re-development of Britdaq's prototype website into a production-ready, n-tier public platform (C#, .NET 4.0, MS SQL Server 2008, ASP.NET, later migrating off Silverlight to pure ASP.NET 4.5), including a trade matching engine, a user forum, and a Companies House XML Gateway integration for statutory filings, delivered using Agile SCRUM with a NUnit/Jenkins-CI build and test environment, alongside setup and maintenance of live, test and UAT servers and general IT administration for the company.
+  - company: "Early Career"
     tier: earlier
     titles:
-      - title: "Senior Software Developer (Contract)"
-        dates: "Feb 2011 - Aug 2011"
+      - title: "Various Software Developer / Analyst roles (Contract & Permanent)"
+        dates: "1993 - 2011"
     body: |
-      The role at RBS was directly with the Credit Risk team and involved the design and development of a new software application suite to measure credit risk. Working with the business directly allowed use of tools and technologies (.NET, NHibernate) that were not necessarily part of the core RBS IT technologies (JAVA).
+      Eighteen years building the technical foundation for later architect and CTO-level roles, spanning investment banking, futures and options trading, mortgage technology, and telecoms.
 
-      - Developing server-side software components in .NET to calculate credit risk along with supporting utilities to store and extract the data to a MS SQL Server database using NHibernate
-      - Designing and creating a stable automated build and test environment for the development process using TeamCity and NUnit
-      - Developing unit tests for existing and new components
-      - Refactoring and debugging components as necessary
-  - company: "Linermark Systems Ltd"
-    tier: earlier
-    titles:
-      - title: "Consultant / Architect / Senior Software Developer (Contract)"
-        dates: "Sep 2008 - Jan 2011"
-    body: |
-      Linermark Systems is an independent software development company specialising in designing, developing and supporting business applications for any business sector.
+      Roles included Royal Bank of Scotland (Credit Risk, .NET/NHibernate), Linermark Systems (Consultant/Architect across a dozen client projects in C#, WPF and SQL Server), Barclays Capital (Credit Risk systems in Visual Basic 6 and C#), EasyScreen / Refco (Futures and Options trading platforms, including a secondment to Chicago), Intelligent Risk (a mortgage technology start-up), NatWest Global Financial Markets, Union Bank of Switzerland, and Human Enterprise / Computer Telephony Services, plus a university industrial placement at UBS.
 
-      - Assisted in gathering and analysing requirements directly from clients and producing specifications
-      - Designed and developed an Aggregates Measuring system for JClubb in C#, WPF and SQL Server
-      - Architected, designed and developed an n-tier retail stock management system (Top2Toe) in Silverlight and RIA Services
-      - Designed and developed a Fleet Management system (Fleet Minder) for Raymond Brown Group in C#, WinForms and SQL Server
-      - Designed and developed a Plant Management system (Plant Minder) for Raymond Brown Group in C#, WinForms and SQL Server
-      - Designed and developed a Skip Management and Tracking system (Skip Minder) for Raymond Brown Group in C#, WinForms and SQL Server
-      - Designed and developed a web and desktop based Property Services job tracking and invoicing system for RedRose, including integration with Iris Exchequer accounting system in ASP.NET, C#, WinForms and SQL Server
-      - Designed and developed a warehouse container and pallet content tracking system for Kuoni Transport. Final enhancements and go-live support provided on-site in Switzerland in C#, WinForms and SQL Server
-      - Responsible for support and enhancing Aram Design's retail stock management system. Work was frequently undertaken on-site in the Covent Garden store
-      - Assisted in supporting and enhancing a Quarry Management system (Quarry Minder) and ReadyMix Concrete system (ReadiMinder) for Raymond Brown Group (mindersoftware.net)
-      - Re-engineered stored procedures to reduce bottlenecks and enhance performance with The Continuity Company's global SQL Server database
-      - Solely developed an in-house code generation application to reduce the time spent creating new client applications in C#
-      - Solely developed a suite of common library routines for use with all Linermark client projects in C#
-      - Re-designed the company website for Linermark Systems (linermark.com)
-  - company: "Barclays Capital"
-    tier: earlier
-    titles:
-      - title: "Software Developer (Contract)"
-        dates: "Aug 2006 - Aug 2008"
-    body: |
-      Barclays Capital is the investment banking division of Barclays Bank PLC.
-
-      - Provided support and performance enhancements to the existing Visual Basic 6 based Credit Risk system (CVAR)
-      - Assisted in designing and prototyping a new object-oriented replacement Credit Risk system (UVAR) in C# and SQL Server
-      - Solely responsible for developing the middle-tier trade processing application for UVAR in C#
-      - Provided direct client support during the UAT and go-live phases of the UVAR project
-  - company: "EasyScreen Plc"
-    tier: earlier
-    titles:
-      - title: "Software Developer (Contract)"
-        dates: "Dec 2004 - May 2006"
-    body: |
-      EasyScreen is a financial software house that develops Futures and Options trading systems. EasyScreen's core product, EasyTrade, comprises an n-tier architecture written in Microsoft Visual Basic 6, Visual C++ and SQL Server. This was superseded by EasyRouter (a server based trade routing system) and EasyActiveTrade (EAT), a light-weight but fully functional trading front-end to EasyRouter.
-
-      - Design and prototyping of a web retail trading front-end and middle-tier with ASP.NET, C# using Visual Studio 2005 (.NET 2.0)
-      - Design and prototyping of a Smart Device (Pocket PC 2003) retail trading front-end and middle-tier web service with the .NET Compact Framework, C# using Visual Studio 2005 (.NET 2.0)
-      - Design and prototyping of a monitoring application to pro-actively monitor the status of EasyServer installations at client sites. ASP.NET, C# using Visual Studio 2005 (.NET 2.0), windows services and web services
-      - Design and prototyping of custom RSS server and client application to monitor the status of EasyServer installations at client sites. ASP.NET, C# using Visual Studio 2005 (.NET 2.0), windows services
-      - Design and development of a Microsoft Excel based trading platform, incorporating Excel trading add-ins and Smart Tag DLLs written in C#, supported by .NET web services and a SQL server database
-  - company: "Intelligent Risk Ltd"
-    tier: earlier
-    titles:
-      - title: "Software Developer (Permanent)"
-        dates: "Jun 2003 - Nov 2004"
-    body: |
-      A green-field start-up company, Intelligent Risk developed an innovative mortgage product to fundamentally change the way people financed their house purchases. Their new system required various .NET components to enable mortgage brokers to track workflow and communicate with external suppliers, valuers, credit checking agencies and regulatory companies. Unfortunately, the company was dissolved in 2004 due to lack of funding.
-
-      - Assisted in the design and implementation of the relational database system (Microsoft SQL Server / Oracle) for the data warehouse and several of the smaller "satellite" databases
-      - Software and hardware design and implementation of a "web-farm" to securely facilitate the web-sites and web services used in the company to provide internal services and external links to various suppliers
-      - Development of externally facing "public" and "broker" web-sites in ASP.NET, C#
-      - Development of various internal web services, tools and utilities in WinForms, C#
-      - Assisted in the day-to-day maintenance and support of the company where necessary
-  - company: "EasyScreen Plc"
-    tier: earlier
-    titles:
-      - title: "Software Developer / Team Leader (Permanent)"
-        dates: "Jan 2000 - Jun 2003"
-    body: |
-      - Development of the EasyTrade front-end product, EasyScreen's primary trading software package. Written in Visual Basic 6, EasyTrade was a component-based system that ran on the Windows platform. It utilised multiple exchange connections to provide real-time market data to the client. Trade state and history were persisted via ADO to SQL Server
-      - Assisted in testing the functionality of the system under different environments and loads
-      - Assisted in the maintenance and support of the system and related components
-      - Assisted the support team with the rollout of EasyTrade to various clients in London
-      - Design and development of future products for EasyScreen plc
-      - Working directly with a key client, ABN AMRO in Chicago, to address specific requirements
-      - Planning and allocation of work for team members
-
-      **Refco EasySolutions (Joint Venture) based in London & Chicago**
-
-      - Seconded to EasyScreen joint venture with Refco LLC, mainly based in Chicago (6 months)
-      - Assisted in the design and development of a new Futures and Options Internet based retail product to replace the existing Lind Waldock system. The product was developed as an ASP, HTML and JavaScript web client specifically for Internet Explorer and was hosted on IIS 5.0. It used Visual Basic 6.0 business objects hosted on MTS to connect to the EasyRouter Order Routing platform
-      - Assisted in the design and development of a new client based Futures trading platform to be deployed globally for Refco. Its primary purpose was to replace the existing EasyTrade product that was too "heavy" for the proposed Refco platform. This completely new "lightweight" product was developed in three months. Written in Visual Basic, communicating with EasyRouter via SOAP/HTTP and utilising Visual Basic business objects hosted on MTS
-
-      **Futures & Options Trading: Software Developer (from April 2002)**
-
-      - Continued development of the new EasyScreen lightweight product called EasyActiveTrade (EAT)
-      - Self-training in VB.NET and ADO.NET in order to establish company expertise and to aid in porting the middle-tier and front-end products to .NET
-      - Prototyping the phase 1 version of EasyActiveTrade in .NET to determine the feasibility of conversion
-      - Design and analysis of future EasyActiveTrade requirements
-      - Specified the requirements for and implemented a new Defect Tracking and Customer Support system (Perfect Tracker) for internal development and external client access
-  - company: "NatWest Global Financial Markets"
-    tier: earlier
-    titles:
-      - title: "Software Developer (Contract)"
-        dates: "Feb 1998 - Jan 2000"
-    body: |
-      The Credit Risk Technology team required an intranet presence and enquiry tools to query counterparty limits and hierarchies.
-
-      - Responsible for the development of an intranet web site for the team
-      - Developed tools for limit and counter-party enquiries using ASP and Visual Basic Web Forms
-      - Documented and presented all systems and technologies used
-
-      **Technology Infrastructure: Support Analyst / Developer**
-
-      The Technology Infrastructure team required assistance in analysing and implementing a new global standard for the desktop refresh programme.
-
-      - Assisted in analysing all software used within NatWest GFM
-      - Assisted in the global rollout of the new standard desktop
-      - Assisted in the administration and global rollout of Microsoft Systems Management Server
-      - Assisted the team with day-to-day administration tasks and short to medium term solutions
-      - Seconded to the NT Server team to assist with the daily administration tasks
-      - Developed the NT Server team intranet site to aid their workflow and provide reporting
-      - Seconded to the Market Data team to develop an internal SQL Server database for the management and reporting of Market Data, Networking, Private Wires and Asset Management information
-
-      **Finance Technology: Support Analyst / Developer**
-
-      The Finance Technology team required assistance in converting numerous legacy databases, spreadsheets and VBA code modules to ensure Y2K compliance.
-
-      - Converted all back-office MS Access v2/95 databases to v97 to ensure Y2K compliance and continued connectivity to live data
-      - Re-coded VBA code modules where necessary
-      - Developed and standardised ODBC server connectivity for client databases
-      - Provided VB development support to internal finance developers
-  - company: "Union Bank of Switzerland"
-    tier: earlier
-    titles:
-      - title: "Programmer (Permanent)"
-        dates: "Sep 1997 - Feb 1998"
-    body: |
-      The Rapid Application Development (RAD) team was involved in producing in-house Visual Basic and C++ solutions for UBS's business areas. Due to the merger of businesses the position was made redundant after 6 months.
-
-      - Designed and developed a document faxing solution for an existing product used in the front and back-offices
-      - Assisted in the development of a middleware-messaging component DataExpress
-  - company: "Human Enterprise Ltd / Computer Telephony Services Ltd"
-    tier: earlier
-    titles:
-      - title: "Programmer / Consultant (Permanent)"
-        dates: "Jun 1995 - Sep 1997"
-    body: |
-      Human Enterprise was an I.T. Consultancy providing solutions for various clients, including News International, Union Bank of Switzerland, Commerzbank and Saudi International Bank.
-
-      - Developed a document library system to facilitate the storage and retrieval of legal documentation using Visual Basic 3 for the Union Bank of Switzerland
-      - Designed and developed a help desk system using Visual Basic 4 and SQL Server for News International
-      - Installation and configuration of MS Windows NT 3.51 to 100+ users at Commerzbank, Frankfurt
-      - Installation and configuration of MS Outlook and Internet Explorer to 250+ users at Saudi International Bank, London
-
-      Computer Telephony Services was a new company formed by Human Enterprise Ltd with the sole objective of entering the Computer Telephony Integration (CTI) market to provide real-time telephony services.
-
-      - Developed real-time telephony/voice, voice-mail, IVR and TAPI applications using Visual Basic and SQL Server
-      - Built and administered NT Servers, SQL Server databases and high-performance client workstations to host CTI applications
-      - Designed and developed Internet sites for both companies, HEL and CTS, using MS FrontPage
-      - Created multimedia projects using Visual Basic
-  - company: "Union Bank of Switzerland"
-    tier: earlier
-    titles:
-      - title: "Support Analyst & Developer (Industrial Placement)"
-        dates: "Jun 1993 - Sep 1994"
-    body: |
-      Industrial placement with UBS (London) I.T. Infrastructure department.
-
-      **University Industrial Placement**
-
-      - Investigated private wire (ISDN) systems, including billing and physical line terminations
-      - Assisted with Novell networking and PC support
-      - Analysed the bank's data feeds to determine utilisation in order to reduce costs
-      - Assisted the Local Area Network security team perform an audit of the bank's networks
-      - Visual Basic developer for the DICE (Distributed Integrated Customer Environment) team
+      Technologies from this period (Visual Basic, VB.NET, ASP, SQL Server, early .NET) reflect the era rather than current practice.
 
       **University Final Year Project**
 
