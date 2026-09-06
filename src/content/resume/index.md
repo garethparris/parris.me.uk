@@ -216,4 +216,18 @@ interests:
       workflows. Lucky enough that the day job and the hobby turned out to
       be the same thing, the same curiosity behind the home lab and AI
       side-projects shows up at work every day too.
+recommendations:
+  - name: "Greg Herlein"
+    relationship: "VP of Software Engineering at BrightSign; managed Gareth directly"
+    quote: >-
+      Gareth is on a trajectory for great things. He's a fantastic Engineer
+      with great "taste" about the "right" way things should be done - but
+      he's also fantastic as a leader and a human. I'm honored that I've
+      gotten to work with him - and hopefully pass on a few things to him.
+      He is still a hands-on Engineer and leader. That not only earns him
+      the respect of his team but has positioned him perfectly to fully
+      embrace the future of AI agentic development. If you are reading this
+      later, when he and I no longer work together, you should just recruit
+      him heavily. You won't find better. Until then, I'm glad to work with
+      him and I hope to work with him for many more years!
 ---

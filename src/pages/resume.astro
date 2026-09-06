@@ -7,7 +7,7 @@ import SkillTags from '../components/SkillTags.astro';
 import RoleEntry from '../components/RoleEntry.astro';
 
 const [resume] = await getCollection('resume');
-const { summary, leadership, education, awards, certifications, skillGroups, roles, interests } = resume.data;
+const { summary, leadership, education, awards, certifications, skillGroups, roles, interests, recommendations } = resume.data;
 
 const currentRoles = roles.filter((r) => r.tier === 'current');
 const earlierRoles = roles.filter((r) => r.tier === 'earlier');
@@ -43,6 +43,16 @@ const earlierRoles = roles.filter((r) => r.tier === 'earlier');
         <RoleEntry role={role} html={marked.parse(role.body) as string} />
       ))}
     </details>
+  </section>
+
+  <section>
+    <h2>Recommendations</h2>
+    {recommendations.map((r) => (
+      <blockquote>
+        <p>&ldquo;{r.quote}&rdquo;</p>
+        <footer>&mdash; {r.name}, <cite>{r.relationship}</cite></footer>
+      </blockquote>
+    ))}
   </section>
 
   <section>
