@@ -45,17 +45,13 @@ download several hundred KB per card to render a thumbnail.
 
 ## Deployment (manual, one-time setup)
 
-This deploys as a Cloudflare Worker with static assets, not the legacy Pages product —
-Cloudflare's "Create an app" flow builds a Workers project by default, and the
-`functions/` Pages-Functions convention doesn't apply there, so the contact form is
-handled by `src/worker.ts` (a real Worker entry point) instead. `wrangler.toml`
-declares `main = "src/worker.ts"` plus an `[assets]` block pointing at `dist`, so a
-single Worker serves the built site and handles `POST /api/contact` itself.
+This deploys as a Cloudflare Worker with static assets. `wrangler.toml` declares
+`main = "src/worker.ts"` plus an `[assets]` block pointing at `dist`, so a single
+Worker serves the built site and handles `POST /api/contact` itself.
 
 1. In the Cloudflare dashboard, create a Worker connected to the
    `garethparris/parris.me.uk` GitHub repo (Workers & Pages → Create an app → Import
-   a repository), build command `npm run build`, deploy command `npx wrangler deploy`
-   (Cloudflare's default for a Git-connected Worker).
+   a repository), build command `npm run build`, deploy command `npx wrangler deploy`.
 2. Under the Worker's Settings > Variables and Secrets, set `RESEND_API_KEY`
    (from a Resend account) and `CONTACT_TO_EMAIL` (the address contact-form
    submissions should be sent to).
