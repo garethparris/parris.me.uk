@@ -5,6 +5,9 @@ interface Props {
   description: string;
 }
 const { title, description } = Astro.props;
+// Falls back to Astro.url when Astro.site is unset (e.g. in AstroContainer
+// tests, which don't load astro.config.mjs's `site` unless told to).
+const canonicalBase = Astro.site ?? Astro.url;
 ---
 <!doctype html>
 <html lang="en">
@@ -13,6 +16,11 @@ const { title, description } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, canonicalBase)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="stylesheet" href="/src/styles/global.css" />
   </head>

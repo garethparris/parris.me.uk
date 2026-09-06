@@ -17,4 +17,16 @@ describe('Layout', () => {
     expect(result).toContain('href="/contact"');
     expect(result).toContain('<p>content</p>');
   });
+
+  it('includes canonical and Open Graph tags', async () => {
+    const container = await AstroContainer.create();
+    const result = await container.renderToString(Layout, {
+      props: { title: 'Test Title', description: 'Test description' },
+      slots: { default: '<p>content</p>' },
+    });
+
+    expect(result).toContain('rel="canonical"');
+    expect(result).toContain('property="og:title"');
+    expect(result).toContain('content="Test Title"');
+  });
 });
