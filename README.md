@@ -14,7 +14,7 @@ Personal site: Home, Resume, Blog, Contact. Built with Astro, deployed on Cloudf
 ## Updating the Resume page
 
 Resume content lives in `src/content/resume/index.md`, manually kept in sync with the
-private vault's `CV.md` — not a live integration. When the CV changes, ask Claude to
+private vault's `CV.md`, not a live integration. When the CV changes, ask Claude to
 "sync the CV to the website" and it updates this file (see docs/superpowers/specs/2026-09-05-website-rebuild-design.md).
 
 ## Adding a blog post
@@ -32,7 +32,7 @@ any images in `public/images/blog/`.
    (from a Resend account) and `CONTACT_TO_EMAIL` (the address contact-form
    submissions should be sent to).
 3. Under the Pages project's Custom domains, add `parris.me.uk` (and `www.parris.me.uk`
-   if wanted) — Cloudflare handles the DNS automatically since the domain's nameservers
+   if wanted); Cloudflare handles the DNS automatically since the domain's nameservers
    already point at Cloudflare.
 4. Every push to `master` redeploys automatically; every PR gets its own preview URL.
 
