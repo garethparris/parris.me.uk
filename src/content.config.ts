@@ -44,7 +44,10 @@ const blog = defineCollection({
     pubDate: z.date(),
     category: z.string(),
     tags: z.array(z.string()),
+    // Full-size image for the post detail page hero.
     heroImage: z.string(),
+    // Smaller variant used for the 120px-tall cards on the blog index.
+    thumbImage: z.string(),
   }),
 });
 

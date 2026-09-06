@@ -20,8 +20,13 @@ private vault's `CV.md`, not a live integration. When the CV changes, ask Claude
 ## Adding a blog post
 
 Add a new Markdown file under `src/content/blog/`, following the frontmatter shape in
-`src/content.config.ts` (title, description, pubDate, category, tags, heroImage). Put
-any images in `public/images/blog/`.
+`src/content.config.ts` (title, description, pubDate, category, tags, heroImage,
+thumbImage). Put any images in `public/images/blog/`.
+
+Supply two sizes of the post image: `heroImage` is the full-size version used for the
+banner on the post's own page, and `thumbImage` is a smaller version used for the
+120px-tall card on the blog index. They are separate fields so the index does not
+download several hundred KB per card to render a thumbnail.
 
 ## Deployment (manual, one-time setup)
 

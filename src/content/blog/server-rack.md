@@ -5,6 +5,7 @@ pubDate: 2020-07-01
 category: "Networking Hardware"
 tags: ["Ubiquity", "Unifi", "UDM Pro", "Switch", "Network"]
 heroImage: "/images/blog/server-rack-full.jpg"
+thumbImage: "/images/blog/server-rack.jpg"
 ---
 I've just updated my SoHo network set-up from:
 

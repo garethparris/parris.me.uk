@@ -17,7 +17,7 @@ const posts = (await getCollection('blog')).sort(
         slug={getPostSlug(post)}
         title={post.data.title}
         category={post.data.category}
-        heroImage={post.data.heroImage}
+        thumbImage={post.data.thumbImage}
       />
     ))}
   </div>

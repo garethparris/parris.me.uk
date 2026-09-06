@@ -5,6 +5,7 @@ pubDate: 2020-12-01
 category: "Team Work"
 tags: [".NET", "C#", "IoT", "Arduino", "RFID"]
 heroImage: "/images/blog/drum-award-full.jpg"
+thumbImage: "/images/blog/drum-award.jpg"
 ---
 Last year I created a post about an Interactive Hardware and Software project I worked on with [Two Lines Meet](https://twolinesmeet.com/) for [MIT's Campaign for a Better World](https://betterworld.mit.edu/).
 

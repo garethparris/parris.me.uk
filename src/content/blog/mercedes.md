@@ -5,6 +5,7 @@ pubDate: 2017-11-01
 category: "Team Work"
 tags: ["Mercedes", "Silver", "Arrows", "4theteam", "AMG"]
 heroImage: "/images/blog/mercedes-full.jpg"
+thumbImage: "/images/blog/mercedes.jpg"
 ---
 In my career I've always focused on my passion of technology and applied it to everywhere I've worked. I made a choice not to focus on one specific business area, and instead try to gain a broad experience from many diverse businesses. Most of the places that I've worked have generally been a positive experience, with the usual caveats of politics and red tape.
 

@@ -5,6 +5,7 @@ pubDate: 2019-11-01
 category: "Interactive Programming"
 tags: [".NET", "C#", "IoT", "Arduino", "RFID"]
 heroImage: "/images/blog/mit-wall-full.jpg"
+thumbImage: "/images/blog/mit-wall.jpg"
 ---
 In summer 2019, the MD of [Two Lines Meet](https://twolinesmeet.com/) contacted me and asked if I could assist them with the software and hardware design and development of an interactive wall for [MIT's Campaign for a Better World](https://betterworld.mit.edu/).
 
