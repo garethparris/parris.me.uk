@@ -56,8 +56,10 @@ Worker serves the built site and handles `POST /api/contact` itself.
    the separate "Build variables and secrets" section under Settings > Build -
    that one only reaches the CI shell during `npm run build`/`wrangler deploy`,
    never the deployed Worker's `env`), set `MAILTRAP_API_TOKEN` (from a Mailtrap
-   account, domain verified for `parris.me.uk`) and `CONTACT_TO_EMAIL` (the
-   address contact-form submissions should be sent to).
+   account, domain verified for `parris.me.uk`), `CONTACT_TO_EMAIL` (the address
+   contact-form submissions should be sent to), and `TURNSTILE_SECRET_KEY` (from
+   a Cloudflare Turnstile widget created for `parris.me.uk` - the matching site
+   key is already committed in `src/pages/contact.astro`, since it's public).
 3. Under the Worker's Settings > Domains & Routes, add `parris.me.uk` (and
    `www.parris.me.uk` if wanted); Cloudflare handles the DNS automatically since the
    domain's nameservers already point at Cloudflare.
@@ -65,11 +67,15 @@ Worker serves the built site and handles `POST /api/contact` itself.
 
 ## Contact form abuse protection
 
-The form is defended by a hidden honeypot field plus name and message length caps,
-enforced server-side in `src/worker.ts` (validation logic lives in `src/lib/contact.ts`,
-shared with its test). That is deliberately lightweight and needs no third-party
-account. If spam becomes a problem, Cloudflare Turnstile would be the stronger next
-step.
+Three layers, all enforced server-side in `src/worker.ts` (validation logic lives in
+`src/lib/contact.ts`, shared with its test):
+
+- **Cloudflare Turnstile** - a challenge widget on the form; the response token is
+  verified against Cloudflare's siteverify API before anything else runs.
+- A hidden **honeypot field** - real visitors never fill it in, so any value there
+  means a bot bypassed the widget entirely.
+- **Name and message length caps** - stops a bot that passes both of the above from
+  pasting an oversized spam payload into the email body.
 
 ## Sequencing note
 

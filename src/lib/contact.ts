@@ -32,3 +32,27 @@ export async function extractContactFields(formData: FormData): Promise<
 
   return { ok: true, name, email, message };
 }
+
+// Verifies a Cloudflare Turnstile response token server-side. `remoteIp` is
+// optional (Turnstile's siteverify endpoint accepts requests without it) but
+// including it, when available, improves Cloudflare's risk scoring.
+export async function verifyTurnstileToken(
+  token: string,
+  secretKey: string,
+  remoteIp?: string
+): Promise<boolean> {
+  if (!token) return false;
+
+  const body = new URLSearchParams();
+  body.append('secret', secretKey);
+  body.append('response', token);
+  if (remoteIp) body.append('remoteip', remoteIp);
+
+  const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+    method: 'POST',
+    body,
+  });
+
+  const outcome = (await response.json()) as { success: boolean };
+  return outcome.success === true;
+}

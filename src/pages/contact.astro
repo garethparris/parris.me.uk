@@ -1,8 +1,15 @@
 ---
 // src/pages/contact.astro
 import Layout from '../layouts/Layout.astro';
+
+// Public site key for the Turnstile widget below - safe to commit, it only
+// identifies which site a challenge belongs to. Verification happens
+// server-side in src/worker.ts using a separate secret key that is never
+// exposed to the client.
+const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
 ---
 <Layout title="Contact | Gareth Parris" description="Get in touch.">
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <h1>Contact</h1>
   <form id="contact-form" method="POST" action="/api/contact" style="display: flex; flex-direction: column; gap: var(--space-2); max-width: 420px;">
     <!--
@@ -31,6 +38,7 @@ import Layout from '../layouts/Layout.astro';
       Message
       <textarea name="message" required rows="5" maxlength="5000" style="width: 100%; padding: 8px; background: var(--color-bg-raised); border: 1px solid var(--color-border); color: var(--color-text); border-radius: 4px;"></textarea>
     </label>
+    <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
     <button type="submit" style="padding: 10px; background: var(--color-accent-teal); border: none; border-radius: 4px; color: var(--color-bg); font-weight: 700; cursor: pointer;">
       Send
     </button>

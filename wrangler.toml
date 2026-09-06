@@ -14,6 +14,9 @@ keep_vars = true
 directory = "./dist"
 binding = "ASSETS"
 
+[observability]
+enabled = false
+
 [observability.logs]
 enabled = true
 head_sampling_rate = 1

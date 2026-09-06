@@ -1,6 +1,7 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, vi, afterEach } from 'vitest';
 import {
   extractContactFields,
+  verifyTurnstileToken,
   HONEYPOT_FIELD,
   MAX_NAME_LENGTH,
   MAX_MESSAGE_LENGTH,
@@ -103,5 +104,65 @@ describe('abuse protection', () => {
       })
     );
     expect(result).toEqual({ ok: false, error: 'Message too long' });
+  });
+});
+
+describe('verifyTurnstileToken', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('rejects an empty token without calling Turnstile', async () => {
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const result = await verifyTurnstileToken('', 'secret');
+
+    expect(result).toBe(false);
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('accepts a token Turnstile reports as valid', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 }))
+    );
+
+    const result = await verifyTurnstileToken('a-real-token', 'secret');
+
+    expect(result).toBe(true);
+  });
+
+  it('rejects a token Turnstile reports as invalid', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn().mockResolvedValue(
+        new Response(JSON.stringify({ success: false, 'error-codes': ['invalid-input-response'] }), {
+          status: 200,
+        })
+      )
+    );
+
+    const result = await verifyTurnstileToken('a-fake-token', 'secret');
+
+    expect(result).toBe(false);
+  });
+
+  it('sends the token, secret and remote IP to the siteverify endpoint', async () => {
+    const fetchSpy = vi
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 200 }));
+    vi.stubGlobal('fetch', fetchSpy);
+
+    await verifyTurnstileToken('a-real-token', 'my-secret', '203.0.113.1');
+
+    expect(fetchSpy).toHaveBeenCalledWith(
+      'https://challenges.cloudflare.com/turnstile/v0/siteverify',
+      expect.objectContaining({ method: 'POST' })
+    );
+    const sentBody = fetchSpy.mock.calls[0][1].body as URLSearchParams;
+    expect(sentBody.get('secret')).toBe('my-secret');
+    expect(sentBody.get('response')).toBe('a-real-token');
+    expect(sentBody.get('remoteip')).toBe('203.0.113.1');
   });
 });
