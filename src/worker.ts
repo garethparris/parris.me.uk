@@ -36,6 +36,8 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   });
 
   if (!mailtrapResponse.ok) {
+    const body = await mailtrapResponse.text();
+    console.error(`Mailtrap send failed: ${mailtrapResponse.status} ${body}`);
     return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 502 });
   }
 
