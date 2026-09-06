@@ -20,6 +20,13 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     return new Response(JSON.stringify({ error: fields.error }), { status: 400 });
   }
 
+  if (!env.MAILTRAP_API_TOKEN || !env.CONTACT_TO_EMAIL) {
+    console.error(
+      `Contact form misconfigured: MAILTRAP_API_TOKEN present=${!!env.MAILTRAP_API_TOKEN}, CONTACT_TO_EMAIL present=${!!env.CONTACT_TO_EMAIL}`
+    );
+    return new Response(JSON.stringify({ error: 'Contact form is not configured' }), { status: 500 });
+  }
+
   const mailtrapResponse = await fetch('https://send.api.mailtrap.io/api/send', {
     method: 'POST',
     headers: {
