@@ -23,13 +23,13 @@ leadership: >-
   co-develops production code with AI assistance (e.g. porting critical
   certificate-management API components); built and uses Grafana MCP for
   AI-assisted live log/metric incident diagnosis; and runs internal AI
-  side-projects exploring new product opportunities for the business. Views
-  this hands-on, AI-augmented approach as the way engineering leadership has
-  to work as management layers flatten: the job is less about routing tickets
-  and more about owning technical strategy, managing complexity, and staying
-  close enough to the code and the system to make that judgement call
-  personally, while still protecting team wellbeing and preventing burnout
-  under sustained delivery pressure.
+  side-projects exploring new product opportunities for the business. As AI
+  reshapes what engineering leadership requires, staying hands-on has become
+  a competitive advantage rather than a distraction from the job: directors
+  and VPs who can still operate in the code are increasingly valued over
+  those who only route tickets, and this is a deliberate bet that has paid
+  off in scope and trust gained, while still protecting team wellbeing and
+  preventing burnout under sustained delivery pressure.
 education: >-
   BSc (Hons) Computer Science (Software Engineering), Upper Second-Class
   Honours (2:1), University of Hertfordshire, 1991-1995.
@@ -38,22 +38,24 @@ awards:
 certifications:
   - "AWS Knowledge: Amazon EKS - Training Badge (Amazon Web Services Training and Certification, April 2024)"
 skillGroups:
+  - label: "Leadership & Strategy"
+    items: ["Software Engineering Management", "Engineering Leadership", "Technical Strategy", "Cross-functional Team Leadership", "People Management", "Incident Management"]
   - label: "Cloud & Platform"
-    items: ["AWS (EKS, Control Tower)", "Azure", "Kubernetes (Helm, Minikube)", "Terraform", "Ansible", "Docker", "Docker Compose"]
+    items: ["Cloud-Native Architecture", "AWS (EKS, Control Tower)", "Azure", "Kubernetes (Helm, Minikube)", "Terraform", "Ansible", "Docker", "Docker Compose"]
   - label: "Observability & Incident Management"
-    items: ["OpenTelemetry", "Grafana (incl. Grafana MCP)", "Prometheus", "Loki", "Alertmanager", "PagerDuty", "OpsGenie", "Incident.io", "on-call/escalation design", "blameless postmortems"]
+    items: ["Software Observability", "OpenTelemetry", "Grafana (incl. Grafana MCP)", "Prometheus", "Loki", "Alertmanager", "PagerDuty", "OpsGenie", "Incident.io", "on-call/escalation design", "blameless postmortems"]
   - label: "Security & Compliance"
-    items: ["SOC 2 Type II", "OAuth2/OIDC", "OWIN/ASP.NET Identity", "SCIM", "Keycloak", "HashiCorp Vault", "DDoS/bot mitigation"]
+    items: ["SOC 2 Type II", "Identity and Access Management (IAM)", "OAuth 2.0/OIDC", "OWIN/ASP.NET Identity", "SCIM", "Keycloak", "HashiCorp Vault", "DDoS/bot mitigation"]
   - label: "Messaging & APIs"
     items: ["NATS", "RabbitMQ", "REST", "gRPC", "Swagger", "Postman"]
   - label: "Languages & Frameworks"
-    items: ["C# / .NET (6-10)", "WPF/MVVM/MEF/TPL", "ASP.NET/MVC/Razor/WebAPI", "TypeScript", "JavaScript", "HTML/CSS", "Go", "Python"]
+    items: ["C# / .NET (6-10)", "VB.NET", "WPF/MVVM/MEF/TPL", "ASP.NET/MVC/Razor/WebAPI", "TypeScript", "JavaScript", "HTML/CSS", "Go", "Python"]
   - label: "Testing & CI/CD"
-    items: ["xUnit", "NUnit", "MSTest", "Fluent Assertions", "NSubstitute", "SpecFlow", "Selenium", "GitHub Actions", "Azure DevOps", "TeamCity", "Jenkins", "Octopus Deploy"]
+    items: ["Spec-Driven Development", "Test-Driven Development", "xUnit", "NUnit", "MSTest", "Fluent Assertions", "NSubstitute", "SpecFlow", "Selenium", "GitHub Actions", "Azure DevOps", "TeamCity", "Jenkins", "Octopus Deploy"]
   - label: "Databases"
-    items: ["Microsoft SQL Server", "PostgreSQL", "MySQL", "SQLite"]
+    items: ["Database Design and Administration", "Microsoft SQL Server", "T-SQL", "PostgreSQL", "MySQL", "SQLite"]
   - label: "AI-Assisted Engineering"
-    items: ["AI pair-programming for production code", "AI-assisted incident diagnostics", "internal AI tooling/side-projects"]
+    items: ["GitHub Copilot", "Claude / Claude Code", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP)", "internal AI tooling/side-projects"]
 roles:
   - company: "BrightSign"
     tier: current
@@ -68,6 +70,8 @@ roles:
       BrightSign is the world's leading manufacturer of digital signage media players, with hundreds of thousands of devices connected globally to its BSN.Cloud SaaS management platform.
 
       Promoted twice in four years (Server Engineering Lead to Software Engineering Manager to Director of Software Engineering) in recognition of strategic impact and leadership growth, named a **Finalist for the 2025 Graham Impact Awards** for contributions to BrightSign along the way. Now lead three engineering teams: **Cloud** (BSN.Cloud SaaS platform), **Platform** (Kubernetes/AWS infrastructure and operations), and **Client** (customer-facing applications), while remaining directly hands-on in the codebase, architecture, and incident response.
+
+      Manages 8 direct reports across the three teams (Cloud: 4, including engineers based in Ukraine; Platform: 2 direct based in Ukraine and Poland, plus 2 indirect reports via a consultancy engagement; Client: 2, with a third planned pending budget approval), leading daily across UK, Poland, Ukraine and US Pacific time zones.
 
       - Led the technical response to a database performance and scaling risk: drove analysis of a planned AWS PostgreSQL migration, and when it proved infeasible due to code coupling, pivoted to vertically scaling and re-tuning the existing MS SQL Server estate with a hot-standby, avoiding a six-figure Enterprise licensing cost and buying at least a year of stability to fund a wider refactor, later followed by hiring a dedicated DBA to further improve performance
       - Built the company's first observability stack (Prometheus, Grafana, Loki, Alertmanager, PagerDuty/OpsGenie) ahead of a dedicated DevOps hire, later evolving it into an AI-assisted live diagnostics workflow using Grafana MCP
