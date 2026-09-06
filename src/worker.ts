@@ -6,6 +6,12 @@
 
 import { extractContactFields } from './lib/contact';
 
+// MAILTRAP_API_TOKEN and CONTACT_TO_EMAIL must be set under the Worker's
+// Settings > Variables and Secrets (runtime), not the project's Build
+// variables and secrets. Build variables are only injected into the CI shell
+// during `npm run build`/`wrangler deploy` and never reach this Env object -
+// setting them there instead is a real, easy-to-make mistake that silently
+// produces a "Contact form is not configured" 500 below.
 export interface Env {
   MAILTRAP_API_TOKEN: string;
   CONTACT_TO_EMAIL: string;
