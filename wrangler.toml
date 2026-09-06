@@ -1,3 +1,7 @@
 name = "parris-me-uk"
 compatibility_date = "2026-09-05"
-pages_build_output_dir = "dist"
+main = "src/worker.ts"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"

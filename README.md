@@ -1,6 +1,6 @@
 # parris.me.uk
 
-Personal site: Home, Resume, Blog, Contact. Built with Astro, deployed on Cloudflare Pages.
+Personal site: Home, Resume, Blog, Contact. Built with Astro, deployed on Cloudflare Workers.
 
 ## AI-assisted development
 
@@ -45,23 +45,32 @@ download several hundred KB per card to render a thumbnail.
 
 ## Deployment (manual, one-time setup)
 
-1. In the Cloudflare dashboard, create a Pages project connected to the
-   `garethparris/parris.me.uk` GitHub repo, build command `npm run build`, output
-   directory `dist`.
-2. Under the Pages project's Settings > Environment variables, set `RESEND_API_KEY`
+This deploys as a Cloudflare Worker with static assets, not the legacy Pages product —
+Cloudflare's "Create an app" flow builds a Workers project by default, and the
+`functions/` Pages-Functions convention doesn't apply there, so the contact form is
+handled by `src/worker.ts` (a real Worker entry point) instead. `wrangler.toml`
+declares `main = "src/worker.ts"` plus an `[assets]` block pointing at `dist`, so a
+single Worker serves the built site and handles `POST /api/contact` itself.
+
+1. In the Cloudflare dashboard, create a Worker connected to the
+   `garethparris/parris.me.uk` GitHub repo (Workers & Pages → Create an app → Import
+   a repository), build command `npm run build`, deploy command `npx wrangler deploy`
+   (Cloudflare's default for a Git-connected Worker).
+2. Under the Worker's Settings > Variables and Secrets, set `RESEND_API_KEY`
    (from a Resend account) and `CONTACT_TO_EMAIL` (the address contact-form
    submissions should be sent to).
-3. Under the Pages project's Custom domains, add `parris.me.uk` (and `www.parris.me.uk`
-   if wanted); Cloudflare handles the DNS automatically since the domain's nameservers
-   already point at Cloudflare.
+3. Under the Worker's Settings > Domains & Routes, add `parris.me.uk` (and
+   `www.parris.me.uk` if wanted); Cloudflare handles the DNS automatically since the
+   domain's nameservers already point at Cloudflare.
 4. Every push to `main` redeploys automatically; every PR gets its own preview URL.
 
 ## Contact form abuse protection
 
 The form is defended by a hidden honeypot field plus name and message length caps,
-enforced server-side in `functions/api/contact.ts`. That is deliberately lightweight
-and needs no third-party account. If spam becomes a problem, Cloudflare Turnstile
-would be the stronger next step.
+enforced server-side in `src/worker.ts` (validation logic lives in `src/lib/contact.ts`,
+shared with its test). That is deliberately lightweight and needs no third-party
+account. If spam becomes a problem, Cloudflare Turnstile would be the stronger next
+step.
 
 ## Sequencing note
 

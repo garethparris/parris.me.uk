@@ -4,7 +4,7 @@ import {
   HONEYPOT_FIELD,
   MAX_NAME_LENGTH,
   MAX_MESSAGE_LENGTH,
-} from '../functions/api/contact';
+} from '../src/lib/contact';
 
 function formDataWith(fields: Record<string, string>): FormData {
   const fd = new FormData();
