@@ -28,12 +28,12 @@ const canonicalBase = Astro.site ?? Astro.url;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   </head>
   <body>
-    <header class="container" style="padding-top: var(--space-2); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.85rem;">
-      <a href="/" style="color: var(--color-text); text-decoration: none;">parris.me.uk</a>
-      <nav>
-        <a href="/resume">Resume</a> &nbsp;
-        <a href="/blog">Blog</a> &nbsp;
-        <a href="/contact">Contact</a> &nbsp;
+    <header class="container site-header">
+      <a href="/" class="brand">parris.me.uk</a>
+      <nav class="site-nav">
+        <a href="/resume">Resume</a>
+        <a href="/blog">Blog</a>
+        <a href="/contact">Contact</a>
         <a href="https://linkedin.com/in/garethparris" rel="me noopener" target="_blank">LinkedIn</a>
       </nav>
     </header>
@@ -45,3 +45,25 @@ const canonicalBase = Astro.site ?? Astro.url;
     </footer>
   </body>
 </html>
+
+<style>
+  .site-header {
+    padding-top: var(--space-2);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    row-gap: var(--space-1);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+  .site-header .brand {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-2);
+  }
+</style>
