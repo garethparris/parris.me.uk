@@ -1,14 +1,13 @@
 // src/worker.ts
 //
-// Entry point for the Cloudflare Workers deployment (Workers & Pages "Create
-// an app" flow, not the legacy Pages product). Static assets are served via
-// the ASSETS binding configured in wrangler.toml; this Worker only needs to
-// intercept the one route with server-side logic, the contact form.
+// Entry point for the Cloudflare Workers deployment. Static assets are served
+// via the ASSETS binding configured in wrangler.toml; this Worker only needs
+// to intercept the one route with server-side logic, the contact form.
 
 import { extractContactFields } from './lib/contact';
 
 export interface Env {
-  RESEND_API_KEY: string;
+  MAILTRAP_API_TOKEN: string;
   CONTACT_TO_EMAIL: string;
   ASSETS: Fetcher;
 }
@@ -21,22 +20,22 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     return new Response(JSON.stringify({ error: fields.error }), { status: 400 });
   }
 
-  const resendResponse = await fetch('https://api.resend.com/emails', {
+  const mailtrapResponse = await fetch('https://send.api.mailtrap.io/api/send', {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${env.RESEND_API_KEY}`,
+      Authorization: `Bearer ${env.MAILTRAP_API_TOKEN}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      from: 'parris.me.uk contact form <noreply@parris.me.uk>',
-      to: env.CONTACT_TO_EMAIL,
-      reply_to: fields.email,
+      from: { email: 'noreply@parris.me.uk', name: 'parris.me.uk contact form' },
+      to: [{ email: env.CONTACT_TO_EMAIL }],
+      reply_to: { email: fields.email },
       subject: `New contact form message from ${fields.name}`,
       text: fields.message,
     }),
   });
 
-  if (!resendResponse.ok) {
+  if (!mailtrapResponse.ok) {
     return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 502 });
   }
 
