@@ -356,8 +356,8 @@ roles:
 interests:
   - body: >-
       Scuba Diving (TDI Normoxic Tri-mix diver & PADI Assistant Instructor,
-      not currently active), Road and Mountain Biking, Swimming, Running,
-      Electronics.
+      not currently active), IAM Advanced Driver (Institute of Advanced
+      Motorists), Road and Mountain Biking, Swimming, Running, Electronics.
   - heading: "Renewable Energy & Sustainability"
     body: >-
       Hands-on experience with home solar, battery storage, and heat pumps
@@ -367,15 +367,22 @@ interests:
       Energy and Octopus Energy driving the renewable energy transition.
   - heading: "Smart Home & IoT"
     body: >-
-      Highly skilled in Home Assistant automation, ESP32 development, and
-      Zigbee-based smart controls. Exploring the intersection of IoT,
-      automation, and renewable energy systems.
+      Highly skilled in Home Assistant automation, ESP32 and Arduino
+      development, and Zigbee-based smart controls. Exploring the
+      intersection of IoT, automation, and renewable energy systems.
   - heading: "Home Lab & Telemetry"
     body: >-
-      Runs a home lab (a 42U rack running a Kubernetes cluster and a
-      fully-segmented UniFi network with multiple switches and secure VLAN
-      zoning), with telemetry monitored end-to-end via Home Assistant. A
-      direct extension of the same telemetry/observability instincts
-      developed professionally, from Formula 1 telemetry systems (ATLAS) to
-      BrightSign's OpenTelemetry/Grafana stack, into a personal setup.
+      Runs a home lab (a 42U rack running a Kubernetes cluster on multiple
+      Raspberry Pis, and a fully-segmented UniFi network with multiple
+      switches and secure VLAN zoning), with telemetry monitored end-to-end
+      via Home Assistant. A direct extension of the same
+      telemetry/observability instincts developed professionally, from
+      Formula 1 telemetry systems (ATLAS) to BrightSign's
+      OpenTelemetry/Grafana stack, into a personal setup.
+  - heading: "Other Interests"
+    body: >-
+      Drones, cryptocurrencies, and emerging AI applications in daily
+      workflows. Lucky enough that the day job and the hobby turned out to
+      be the same thing, the same curiosity behind the home lab and AI
+      side-projects shows up at work every day too.
 ---
