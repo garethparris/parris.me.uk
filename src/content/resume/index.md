@@ -55,7 +55,7 @@ skillGroups:
   - label: "Databases"
     items: ["Database Design and Administration", "Microsoft SQL Server", "T-SQL", "PostgreSQL", "MySQL", "SQLite"]
   - label: "AI-Assisted Engineering"
-    items: ["GitHub Copilot", "Claude / Claude Code", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP)", "internal AI tooling/side-projects"]
+    items: ["GitHub Copilot", "Claude Code", "Claude", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP)", "internal AI tooling/side-projects"]
 roles:
   - company: "BrightSign"
     tier: current
