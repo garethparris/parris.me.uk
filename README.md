@@ -36,6 +36,13 @@ any images in `public/images/blog/`.
    already point at Cloudflare.
 4. Every push to `main` redeploys automatically; every PR gets its own preview URL.
 
+## Contact form abuse protection
+
+The form is defended by a hidden honeypot field plus name and message length caps,
+enforced server-side in `functions/api/contact.ts`. That is deliberately lightweight
+and needs no third-party account. If spam becomes a problem, Cloudflare Turnstile
+would be the stronger next step.
+
 ## Sequencing note
 
 Per the design spec: do the domain cutover (step 3 above) at the same time as

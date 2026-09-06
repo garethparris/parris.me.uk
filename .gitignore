@@ -28,3 +28,6 @@ pnpm-debug.log*
 # project-specific
 .superpowers/
 .worktrees/
+
+# Cloudflare Pages local dev secrets (wrangler pages dev)
+.dev.vars
