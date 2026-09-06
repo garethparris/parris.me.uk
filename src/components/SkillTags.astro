@@ -7,9 +7,9 @@ const { groups } = Astro.props;
 ---
 {groups.map((group) => (
   <div style="margin-bottom: var(--space-2);">
-    <h4 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-accent-teal); margin-bottom: var(--space-1);">
+    <h3 style="font-family: var(--font-mono); font-size: 0.75rem; text-transform: uppercase; color: var(--color-accent-teal); margin-bottom: var(--space-1);">
       {group.label}
-    </h4>
+    </h3>
     <div>
       {group.items.map((item) => <span class="tag" style="margin: 0 4px 4px 0;">{item}</span>)}
     </div>
