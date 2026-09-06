@@ -25,7 +25,8 @@ leadership: >-
   certificate-management API components); built and uses Grafana MCP and
   Kubernetes MCP for AI-assisted live diagnostics across logs, metrics and
   cluster state; and runs internal AI
-  side-projects exploring new product opportunities for the business. As AI
+  side-projects exploring new product opportunities for the business (e.g.
+  prototyping an MCP server for the BSN.Cloud platform itself). As AI
   reshapes what engineering leadership requires, staying hands-on has become
   a competitive advantage rather than a distraction from the job: directors
   and VPs who can still operate in the code are increasingly valued over
@@ -57,7 +58,7 @@ skillGroups:
   - label: "Databases"
     items: ["Database Design and Administration", "Microsoft SQL Server", "T-SQL", "PostgreSQL", "MySQL", "SQLite"]
   - label: "AI-Assisted Engineering"
-    items: ["GitHub Copilot", "Claude Code", "Claude", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP, Kubernetes MCP)", "internal AI tooling/side-projects"]
+    items: ["GitHub Copilot", "Claude Code", "Claude", "AI pair-programming for production code", "AI-assisted incident diagnostics (Grafana MCP, Kubernetes MCP)", "internal AI tooling/side-projects (BSN.Cloud MCP server prototype)"]
 roles:
   - company: "BrightSign"
     tier: current
@@ -82,7 +83,7 @@ roles:
       - Led a full architectural remodel of BSN.Cloud (dependency-injection refactor, multi-account AWS Control Tower setup, and a provisioning system rewrite), enabling BrightSign Control Plus, a new device management revenue stream launched August 2026
       - Cut logging data volume by switching the platform's logging format from JSON to logfmt, reducing daily log volume by roughly 1.5 TB
       - Driving ongoing Kubernetes cost optimisation: redesigning cluster topology across Availability Zones to cut inter-AZ data transfer costs, and separating hundreds of GB/day of player-fleet log traffic into a dedicated Loki tenant, apart from platform server logs, to improve both cost and operability
-      - Co-develops production code with AI assistance and runs internal AI side-projects exploring new product opportunities, alongside advising senior engineers on architecture and running cross-team PR review across .NET, TypeScript, Go and Python
+      - Co-develops production code with AI assistance and runs internal AI side-projects exploring new product opportunities (e.g. prototyping an MCP server for the BSN.Cloud platform itself), alongside advising senior engineers on architecture and running cross-team PR review across .NET, TypeScript, Go and Python
       - Represents the business externally: presented BrightSign Control Plus at InfoComm (Las Vegas) and ISE (Barcelona), including client-facing meetings with Disney and Comcast
       - Operates at every level of the business: biweekly updates directly to the CEO, close day-to-day partnership with the VP of Software, and direct engagement with Sales and Product executives, while building personal working relationships across Marketing, Sales, Support, Development, Infrastructure and IT, using in-person time at InfoComm and ISE to connect with remote US and European colleagues beyond the usual video calls
   - company: "Savernake Capital"
