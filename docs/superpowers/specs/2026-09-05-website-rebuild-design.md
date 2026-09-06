@@ -57,4 +57,4 @@ Gareth picked "the Cloudflare equivalent of Netlify Forms" — worth flagging th
 
 ## Sequencing
 
-This site should be fully built, content-migrated, and deployed to a Cloudflare Pages preview URL *before* Gareth flips any public switches (LinkedIn "Open to Work", posting the new LinkedIn profile). Domain cutover (pointing `parris.me.uk` at the new Cloudflare Pages deployment) happens as the final step, timed alongside the LinkedIn publish.
+This site should be fully built, content-migrated, and deployed to a Cloudflare Pages preview URL before the domain cutover. Domain cutover (pointing `parris.me.uk` at the new Cloudflare Pages deployment) happens as the final step, timed alongside publishing the refreshed CV and LinkedIn profile so all three go live together.
