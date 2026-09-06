@@ -16,7 +16,7 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
       Honeypot: positioned off-screen rather than display:none, so naive bots
       that skip hidden inputs still fill it in. Kept out of the tab order and
       hidden from assistive tech so no real visitor ever reaches it. Any
-      non-empty value is rejected server-side (see functions/api/contact.ts).
+      non-empty value is rejected server-side (see src/lib/contact.ts).
     -->
     <input
       type="text"
@@ -38,8 +38,14 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
       Message
       <textarea name="message" required rows="5" maxlength="5000" style="width: 100%; padding: 8px; background: var(--color-bg-raised); border: 1px solid var(--color-border); color: var(--color-text); border-radius: 4px;"></textarea>
     </label>
-    <div class="cf-turnstile" data-sitekey={TURNSTILE_SITE_KEY}></div>
-    <button type="submit" style="padding: 10px; background: var(--color-accent-teal); border: none; border-radius: 4px; color: var(--color-bg); font-weight: 700; cursor: pointer;">
+    <div
+      class="cf-turnstile"
+      data-sitekey={TURNSTILE_SITE_KEY}
+      data-callback="onTurnstileSuccess"
+      data-expired-callback="onTurnstileExpired"
+      data-error-callback="onTurnstileExpired"
+    ></div>
+    <button type="submit" id="contact-submit" disabled style="padding: 10px; background: var(--color-accent-teal); border: none; border-radius: 4px; color: var(--color-bg); font-weight: 700; cursor: pointer;">
       Send
     </button>
     <p id="contact-status" role="status"></p>
@@ -48,6 +54,18 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
   <script>
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const status = document.getElementById('contact-status')!;
+    const submitButton = document.getElementById('contact-submit') as HTMLButtonElement;
+
+    // Turnstile calls these by name from the global scope once the widget
+    // loads, so the submit button stays disabled until a challenge actually
+    // completes (rather than only rejecting after submission).
+    (window as any).onTurnstileSuccess = () => {
+      submitButton.disabled = false;
+    };
+    (window as any).onTurnstileExpired = () => {
+      submitButton.disabled = true;
+    };
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const formData = new FormData(form);
@@ -55,7 +73,11 @@ const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
       status.textContent = response.ok
         ? "Thanks, I'll get back to you soon."
         : 'Something went wrong, please email me directly instead.';
-      if (response.ok) form.reset();
+      if (response.ok) {
+        form.reset();
+        submitButton.disabled = true;
+        (window as any).turnstile?.reset();
+      }
     });
   </script>
 </Layout>
