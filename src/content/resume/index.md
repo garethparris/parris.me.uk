@@ -6,7 +6,7 @@ summary: >-
   infrastructure. Leads three engineering teams (Cloud, Platform, and Client)
   at BrightSign, delivering the BSN.Cloud SaaS platform and BrightSign Control
   Plus to hundreds of thousands of IoT-connected devices globally. Promoted
-  from Server Engineer Lead through Software Engineering Manager to Director
+  from Server Engineering Lead through Software Engineering Manager to Director
   over four years, driven by hands-on delivery of platform-critical work
   (database crisis recovery, Kubernetes migration, SOC 2 compliance, SSO/MFA)
   as much as by team leadership. Stays directly in the codebase and
@@ -62,12 +62,12 @@ roles:
         dates: "Oct 2025 - Present"
       - title: "Software Engineering Manager"
         dates: "Jul 2023 - Oct 2025"
-      - title: "Server Engineer Lead"
+      - title: "Server Engineering Lead"
         dates: "Aug 2022 - Jul 2023"
     body: |
       BrightSign is the world's leading manufacturer of digital signage media players, with hundreds of thousands of devices connected globally to its BSN.Cloud SaaS management platform.
 
-      Promoted twice in four years (Server Engineer Lead to Software Engineering Manager to Director of Software Engineering) in recognition of strategic impact and leadership growth, named a **Finalist for the 2025 Graham Impact Awards** for contributions to BrightSign along the way. Now lead three engineering teams: **Cloud** (BSN.Cloud SaaS platform), **Platform** (Kubernetes/AWS infrastructure and operations), and **Client** (customer-facing applications), while remaining directly hands-on in the codebase, architecture, and incident response.
+      Promoted twice in four years (Server Engineering Lead to Software Engineering Manager to Director of Software Engineering) in recognition of strategic impact and leadership growth, named a **Finalist for the 2025 Graham Impact Awards** for contributions to BrightSign along the way. Now lead three engineering teams: **Cloud** (BSN.Cloud SaaS platform), **Platform** (Kubernetes/AWS infrastructure and operations), and **Client** (customer-facing applications), while remaining directly hands-on in the codebase, architecture, and incident response.
 
       - Led the technical response to a database performance and scaling risk: drove analysis of a planned AWS PostgreSQL migration, and when it proved infeasible due to code coupling, pivoted to vertically scaling and re-tuning the existing MS SQL Server estate with a hot-standby, avoiding a six-figure Enterprise licensing cost and buying at least a year of stability to fund a wider refactor, later followed by hiring a dedicated DBA to further improve performance
       - Built the company's first observability stack (Prometheus, Grafana, Loki, Alertmanager, PagerDuty/OpsGenie) ahead of a dedicated DevOps hire, later evolving it into an AI-assisted live diagnostics workflow using Grafana MCP
@@ -82,7 +82,7 @@ roles:
   - company: "Savernake Capital"
     tier: current
     titles:
-      - title: "Chief Technical Officer (Permanent)"
+      - title: "Chief Technology Officer (Permanent)"
         dates: "Feb 2021 - Jul 2022"
     body: |
       Savernake Capital is a quantitative investment management company specialising in adaptive machine learning. They utilise a self-learning portfolio building system to trade global financial markets, adapting in real time to changing conditions.
@@ -131,7 +131,7 @@ roles:
     tier: earlier
     titles:
       - title: "Senior Developer (Contract)"
-        dates: "Jun 2017 - Sep 2017"
+        dates: "Jul 2017 - Sep 2017"
     body: |
       Britdaq is a financial services company, offering share matching facilities for private companies and investors, a live company share registrar service, company secretarial services via Companies House, and an online discussion forum for investors.
 
@@ -190,7 +190,7 @@ roles:
     tier: earlier
     titles:
       - title: "Consultant / Architect / Senior Software Developer (Contract)"
-        dates: "Aug 2008 - Feb 2011"
+        dates: "Sep 2008 - Jan 2011"
     body: |
       Linermark Systems is an independent software development company specialising in designing, developing and supporting business applications for any business sector.
 
