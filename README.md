@@ -52,9 +52,12 @@ Worker serves the built site and handles `POST /api/contact` itself.
 1. In the Cloudflare dashboard, create a Worker connected to the
    `garethparris/parris.me.uk` GitHub repo (Workers & Pages → Create an app → Import
    a repository), build command `npm run build`, deploy command `npx wrangler deploy`.
-2. Under the Worker's Settings > Variables and Secrets, set `MAILTRAP_API_TOKEN`
-   (from a Mailtrap account, domain verified for `parris.me.uk`) and
-   `CONTACT_TO_EMAIL` (the address contact-form submissions should be sent to).
+2. Under the Worker's **Settings > Variables and Secrets** (the runtime one, not
+   the separate "Build variables and secrets" section under Settings > Build -
+   that one only reaches the CI shell during `npm run build`/`wrangler deploy`,
+   never the deployed Worker's `env`), set `MAILTRAP_API_TOKEN` (from a Mailtrap
+   account, domain verified for `parris.me.uk`) and `CONTACT_TO_EMAIL` (the
+   address contact-form submissions should be sent to).
 3. Under the Worker's Settings > Domains & Routes, add `parris.me.uk` (and
    `www.parris.me.uk` if wanted); Cloudflare handles the DNS automatically since the
    domain's nameservers already point at Cloudflare.
