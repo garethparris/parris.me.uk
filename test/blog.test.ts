@@ -5,9 +5,9 @@ import { getCollection } from 'astro:content';
 import BlogIndex from '../src/pages/blog/index.astro';
 
 describe('Blog index', () => {
-  it('lists all four migrated posts', async () => {
+  it('lists all posts', async () => {
     const posts = await getCollection('blog');
-    expect(posts).toHaveLength(4);
+    expect(posts).toHaveLength(5);
 
     const container = await AstroContainer.create();
     const result = await container.renderToString(BlogIndex);
@@ -16,6 +16,7 @@ describe('Blog index', () => {
     expect(result).toContain('Working with a Winning Team');
     expect(result).toContain('Helping create an Interactive Wall for MIT');
     expect(result).toContain('Custom SoHo Server Rack with Ubiquity Unifi');
+    expect(result).toContain('Finalist, 2025 Graham Impact Awards');
   });
 
   it('sorts posts newest first', async () => {
@@ -32,9 +33,9 @@ import BlogPost, { getStaticPaths } from '../src/pages/blog/[slug].astro';
 describe('Blog post page', () => {
   it('generates one static path per post', async () => {
     const paths = await getStaticPaths();
-    expect(paths).toHaveLength(4);
+    expect(paths).toHaveLength(5);
     expect(paths.map((p) => p.params.slug).sort()).toEqual(
-      ['drum-award', 'mercedes', 'mit-wall', 'server-rack'].sort()
+      ['drum-award', 'graham-impact-awards', 'mercedes', 'mit-wall', 'server-rack'].sort()
     );
   });
 
