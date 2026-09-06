@@ -1,5 +1,5 @@
 {
-  "name": "website-rebuild",
+  "name": "parris-me-uk",
   "type": "module",
   "version": "0.0.1",
   "engines": {
@@ -14,7 +14,6 @@
     "check": "astro check"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.0",
     "astro": "^7.3.1",
     "marked": "^18.0.11"
   },

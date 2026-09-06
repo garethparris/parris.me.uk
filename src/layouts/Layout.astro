@@ -1,5 +1,9 @@
 ---
 // src/layouts/Layout.astro
+// Imported (not <link>ed) so Astro bundles and hashes it into the build
+// output; a literal /src/... href only resolves under the dev server.
+import '../styles/global.css';
+
 interface Props {
   title: string;
   description: string;
@@ -22,7 +26,6 @@ const canonicalBase = Astro.site ?? Astro.url;
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body>
     <header class="container" style="padding-top: var(--space-2); display: flex; justify-content: space-between; align-items: center; font-family: var(--font-mono); font-size: 0.85rem;">
