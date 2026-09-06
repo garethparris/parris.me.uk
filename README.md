@@ -2,6 +2,8 @@
 
 Personal site: Home, Resume, Blog, Contact. Built with Astro, deployed on Cloudflare Workers.
 
+**Status:** live at [parris.me.uk](https://parris.me.uk), including a working contact form (Mailtrap for delivery, Turnstile + honeypot + length caps for abuse protection).
+
 ## AI-assisted development
 
 This site was rebuilt from a dated, hand-coded HTML template using [Claude Code](https://claude.com/claude-code), following a deliberately rigorous process rather than a single prompt-and-done pass:
@@ -16,6 +18,7 @@ That process caught real bugs, not hypothetical ones:
 - A subtle Astro version quirk (`CollectionEntry.slug` doesn't exist in this Astro release) silently broke every blog link on the Home page and Blog index (`/blog/undefined`). Caught during a task review, fixed with a shared helper, and given a regression test afterward.
 - Two accessibility heading-hierarchy skips (in the blog card and skill-tag components) were caught by a dedicated accessibility pass and fixed before merge.
 - The final whole-branch review caught the two most serious defects in the entire build: the production output shipped with zero CSS (a dev-only stylesheet path that 404s once built), and the Cloudflare deploy configuration pointed at the wrong output directory entirely. Both were invisible to the full automated test suite, which only exercises rendered HTML strings rather than an actual build-and-deploy, and both were fixed and independently re-verified before this branch was merged.
+- Post-launch, the contact form's first real submission failed silently. Diagnosis moved from Worker logs (a genuine `401` from the email API, ruling out a Cloudflare-side wiring problem) to a direct `curl` against that API with the same token (which succeeded, isolating the fault to how the secret reached the Worker) to finally finding the actual cause: the secret had been set under Cloudflare's project-level "Build variables" rather than the Worker's runtime "Variables and Secrets" - visually similar, functionally completely different scopes. Fixed, documented inline in the code and here, and confirmed working end to end.
 
 ## Local development
 
@@ -44,6 +47,9 @@ banner on the post's own page, and `thumbImage` is a smaller version used for th
 download several hundred KB per card to render a thumbnail.
 
 ## Deployment (manual, one-time setup)
+
+Already done for the live site above; kept here as reference and for setting up
+a redeploy from scratch if ever needed.
 
 This deploys as a Cloudflare Worker with static assets. `wrangler.toml` declares
 `main = "src/worker.ts"` plus an `[assets]` block pointing at `dist`, so a single
@@ -77,10 +83,11 @@ Three layers, all enforced server-side in `src/worker.ts` (validation logic live
 - **Name and message length caps** - stops a bot that passes both of the above from
   pasting an oversized spam payload into the email body.
 
-## Sequencing note
+## Sequencing note (historical)
 
-Per the design spec: do the domain cutover (step 3 above) at the same time as
-publishing the refreshed CV and LinkedIn profile, not before.
+Per the design spec, the domain cutover (step 3 above) was meant to happen at the
+same time as publishing the refreshed CV and LinkedIn profile, not before. The
+cutover is done and the site above is live; kept here as a record of that decision.
 
 ## License
 
