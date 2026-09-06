@@ -83,7 +83,7 @@ roles:
     tier: current
     titles:
       - title: "Chief Technical Officer (Permanent)"
-        dates: "Feb 2021 - Jun 2022"
+        dates: "Feb 2021 - Jul 2022"
     body: |
       Savernake Capital is a quantitative investment management company specialising in adaptive machine learning. They utilise a self-learning portfolio building system to trade global financial markets, adapting in real time to changing conditions.
 
