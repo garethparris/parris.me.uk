@@ -2,6 +2,21 @@
 
 Personal site: Home, Resume, Blog, Contact. Built with Astro, deployed on Cloudflare Pages.
 
+## AI-assisted development
+
+This site was rebuilt from a dated, hand-coded HTML template using [Claude Code](https://claude.com/claude-code), following a deliberately rigorous process rather than a single prompt-and-done pass:
+
+1. **Design brainstorm and written spec** — decisions (framework, hosting, visual direction, information architecture) were worked through and recorded before any code was written: see [`docs/superpowers/specs/2026-09-05-website-rebuild-design.md`](docs/superpowers/specs/2026-09-05-website-rebuild-design.md).
+2. **Detailed implementation plan** — the spec was broken into 11 concrete, testable tasks with exact file lists and code: see [`docs/superpowers/plans/2026-09-05-website-rebuild.md`](docs/superpowers/plans/2026-09-05-website-rebuild.md).
+3. **Subagent-driven implementation** — each task was built by a fresh AI agent, then independently code-reviewed against the plan before the next task started. Review findings went through fix-and-reverify rounds, not just a single pass.
+4. **A final whole-branch review** before merge, on top of the per-task reviews, specifically to catch anything only visible once every piece exists together.
+
+That process caught real bugs, not hypothetical ones:
+
+- A subtle Astro version quirk (`CollectionEntry.slug` doesn't exist in this Astro release) silently broke every blog link on the Home page and Blog index (`/blog/undefined`). Caught during a task review, fixed with a shared helper, and given a regression test afterward.
+- Two accessibility heading-hierarchy skips (in the blog card and skill-tag components) were caught by a dedicated accessibility pass and fixed before merge.
+- The final whole-branch review caught the two most serious defects in the entire build: the production output shipped with zero CSS (a dev-only stylesheet path that 404s once built), and the Cloudflare deploy configuration pointed at the wrong output directory entirely. Both were invisible to the full automated test suite, which only exercises rendered HTML strings rather than an actual build-and-deploy, and both were fixed and independently re-verified before this branch was merged.
+
 ## Local development
 
     npm install
@@ -52,3 +67,7 @@ would be the stronger next step.
 
 Per the design spec: do the domain cutover (step 3 above) at the same time as
 publishing the refreshed CV and LinkedIn profile, not before.
+
+## License
+
+Code (Astro components, configuration, and build tooling) is MIT-licensed — see [`LICENSE`](LICENSE). The written content (resume, blog posts, and their images) is not covered by that license and is not licensed for reuse.
