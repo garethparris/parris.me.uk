@@ -2,6 +2,14 @@ name = "parris-me-uk"
 compatibility_date = "2026-09-05"
 main = "src/worker.ts"
 
+# CONTACT_TO_EMAIL (and any other plain "Variable" set via the dashboard's
+# Settings > Variables and Secrets) would otherwise get wiped on every deploy,
+# since our deploy command is `wrangler deploy` and Wrangler treats this file
+# as the source of truth for the Worker's config. Secrets are unaffected by
+# this setting — Cloudflare won't delete a Secret unless you explicitly run
+# `wrangler secret delete`.
+keep_vars = true
+
 [assets]
 directory = "./dist"
 binding = "ASSETS"
