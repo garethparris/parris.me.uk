@@ -81,7 +81,7 @@ roles:
       - Migrated the BSN.Cloud platform to .NET 8 and later .NET 10, and onto Kubernetes via AWS EKS, materially reducing AWS infrastructure costs
       - Delivered a new SSO/MFA authentication system and led the platform to SOC 2 Type II compliance, unlocking enterprise customer revenue
       - Led a full architectural remodel of BSN.Cloud (dependency-injection refactor, multi-account AWS Control Tower setup, and a provisioning system rewrite), enabling BrightSign Control Plus, a new device management revenue stream launched August 2026
-      - Cut logging data volume by switching the platform's logging format from JSON to logfmt, reducing daily log volume by roughly 1.5 TB
+      - Cut logging data volume by switching the platform's logging format from JSON to logfmt, reducing daily log volume from around 1.5 TB to just a few hundred GB
       - Driving ongoing Kubernetes cost optimisation: redesigning cluster topology across Availability Zones to cut inter-AZ data transfer costs, and separating hundreds of GB/day of player-fleet log traffic into a dedicated Loki tenant, apart from platform server logs, to improve both cost and operability
       - Co-develops production code with AI assistance and runs internal AI side-projects exploring new product opportunities (e.g. prototyping an MCP server for the BSN.Cloud platform itself), alongside advising senior engineers on architecture and running cross-team PR review across .NET, TypeScript, Go and Python
       - Represents the business externally: presented BrightSign Control Plus at InfoComm (Las Vegas) and ISE (Barcelona), including client-facing meetings with Disney and Comcast
