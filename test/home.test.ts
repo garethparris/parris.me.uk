@@ -10,6 +10,6 @@ describe('Home page', () => {
 
     expect(result).toContain('Gareth Parris');
     expect(result).toContain('CURRENT FOCUS');
-    expect(result).toContain('Kubernetes cost optimisation');
+    expect(result).toContain('SOC 2 renewal &amp; platform scalability');
   });
 });
