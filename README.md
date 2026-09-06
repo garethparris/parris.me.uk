@@ -34,7 +34,7 @@ any images in `public/images/blog/`.
 3. Under the Pages project's Custom domains, add `parris.me.uk` (and `www.parris.me.uk`
    if wanted); Cloudflare handles the DNS automatically since the domain's nameservers
    already point at Cloudflare.
-4. Every push to `master` redeploys automatically; every PR gets its own preview URL.
+4. Every push to `main` redeploys automatically; every PR gets its own preview URL.
 
 ## Sequencing note
 
