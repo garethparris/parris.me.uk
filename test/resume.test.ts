@@ -25,4 +25,12 @@ describe('Resume page', () => {
     expect(result).toContain('Kubernetes');
     expect(result).toContain('OpenTelemetry');
   });
+
+  it('renders recommendations', async () => {
+    const container = await AstroContainer.create();
+    const result = await container.renderToString(Resume);
+
+    expect(result).toContain('Greg Herlein');
+    expect(result).toContain('VP of Software Engineering');
+  });
 });

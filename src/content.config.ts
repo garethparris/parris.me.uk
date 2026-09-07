@@ -33,6 +33,13 @@ const resume = defineCollection({
         body: z.string(),
       })
     ),
+    recommendations: z.array(
+      z.object({
+        name: z.string(),
+        relationship: z.string(),
+        quote: z.string(),
+      })
+    ),
   }),
 });
 
