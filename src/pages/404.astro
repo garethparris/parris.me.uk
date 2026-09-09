@@ -1,0 +1,12 @@
+---
+// src/pages/404.astro
+//
+// Served by Cloudflare's asset router for any path matching no file, per
+// wrangler.toml's `not_found_handling = "404-page"` — without this file,
+// that setting has nothing to serve.
+import Layout from '../layouts/Layout.astro';
+---
+<Layout title="Page not found | Gareth Parris" description="This page doesn't exist.">
+  <h1>Page not found</h1>
+  <p>That page doesn't exist. Try the <a href="/">home page</a>, the <a href="/blog/">blog</a>, or the <a href="/resume/">resume</a>.</p>
+</Layout>

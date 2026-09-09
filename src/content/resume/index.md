@@ -1,4 +1,8 @@
 ---
+headline: >-
+  Director of Software Engineering at BrightSign, leading the Cloud, Platform
+  and Client teams behind the BSN.Cloud SaaS platform.
+updated: 2026-09-09
 summary: >-
   Accomplished Director of Software Engineering with 30+ years of experience
   across investment banking, Formula 1 motorsport (including career-highlight
@@ -36,6 +40,9 @@ leadership: >-
 education: >-
   BSc (Hons) Computer Science (Software Engineering), Upper Second-Class
   Honours (2:1), University of Hertfordshire, 1991-1995.
+alumniOf:
+  name: "University of Hertfordshire"
+  url: "https://www.herts.ac.uk"
 awards:
   - "Finalist, 2025 Graham Impact Awards: a company-wide award run by Graham Partners, BrightSign's private equity backer since 2021, recognising contribution(s) to BrightSign"
 certifications:

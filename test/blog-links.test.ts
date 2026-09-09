@@ -14,20 +14,20 @@ import { describe, it, expect } from 'vitest';
 import Home from '../src/pages/index.astro';
 import BlogIndex from '../src/pages/blog/index.astro';
 
-/** Every relative `/blog/<something>` href in a rendered page, in order. */
+/** Every relative `/blog/<something>/` post href in a rendered page, in order. */
 function extractPostLinks(html: string): string[] {
   const links: string[] = [];
   for (const match of html.matchAll(/href="([^"]*)"/g)) {
     const href = match[1];
-    // Post links only: excludes the nav's bare "/blog" and the absolute
-    // canonical URL, neither of which is a post link.
-    if (href.startsWith('/blog/')) links.push(href);
+    // Post links only: excludes the nav's bare "/blog/" index link and the
+    // absolute canonical URL, neither of which is a post link.
+    if (href.startsWith('/blog/') && href !== '/blog/') links.push(href);
   }
   return links;
 }
 
 function slugsFrom(links: string[]): Set<string> {
-  return new Set(links.map((href) => href.replace(/^\/blog\//, '')));
+  return new Set(links.map((href) => href.replace(/^\/blog\//, '').replace(/\/$/, '')));
 }
 
 async function render(component: Parameters<AstroContainer['renderToString']>[0]) {
@@ -35,7 +35,7 @@ async function render(component: Parameters<AstroContainer['renderToString']>[0]
   return container.renderToString(component);
 }
 
-const VALID_POST_LINK = /^\/blog\/[a-z-]+$/;
+const VALID_POST_LINK = /^\/blog\/[a-z-]+\/$/;
 
 describe('blog post links', () => {
   it('renders well-formed post links on the Blog index', async () => {

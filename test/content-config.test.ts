@@ -4,7 +4,13 @@ import { collections } from '../src/content.config';
 // Import the real schema (Task 1's vitest.config.ts makes astro:content
 // resolvable here) rather than duplicating its shape: this is what every
 // resume.md role must satisfy.
-const roleSchema = collections.resume.schema.shape.roles.element;
+//
+// `defineCollection`'s `schema` type also allows a function of `SchemaContext`
+// (for collections whose schema depends on config), which this project never
+// uses — the `any` cast reflects that the resume collection's schema is
+// always a plain ZodObject, not the function form.
+const resumeSchema = collections.resume.schema as any;
+const roleSchema = resumeSchema.shape.roles.element;
 
 describe('resume role schema', () => {
   it('accepts a valid role entry', () => {
@@ -25,5 +31,29 @@ describe('resume role schema', () => {
       body: 'Some markdown body.',
     };
     expect(() => roleSchema.parse(invalid)).toThrow();
+  });
+});
+
+describe('resume headline field', () => {
+  const headlineSchema = resumeSchema.shape.headline;
+
+  it('accepts a short headline', () => {
+    expect(() => headlineSchema.parse('Director of Software Engineering at BrightSign.')).not.toThrow();
+  });
+
+  it('rejects a headline over 160 characters, so an over-length meta description fails the build rather than getting silently truncated', () => {
+    expect(() => headlineSchema.parse('x'.repeat(161))).toThrow();
+  });
+});
+
+describe('blog updatedDate field', () => {
+  const blogSchema = collections.blog.schema as any;
+
+  it('is optional', () => {
+    expect(() => blogSchema.shape.updatedDate.parse(undefined)).not.toThrow();
+  });
+
+  it('accepts a date when present', () => {
+    expect(() => blogSchema.shape.updatedDate.parse(new Date('2026-01-01'))).not.toThrow();
   });
 });

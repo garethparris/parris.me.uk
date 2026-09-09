@@ -1,0 +1,46 @@
+# Cloudflare Workers static assets: headers here apply to every asset
+# response (including the not_found_handling 404 page), which is the vast
+# majority of this site's traffic — see src/lib/security-headers.ts for why
+# the Worker's own header logic does NOT cover this traffic.
+#
+# Matching rules ACCUMULATE and duplicate headers are comma-joined, so
+# Cache-Control is deliberately never set on `/*` — only on the specific
+# prefixes below, each with a lifetime matched to whether the filename is
+# content-hashed.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Cross-Origin-Opener-Policy: same-origin-allow-popups
+  Strict-Transport-Security: max-age=31536000
+  Permissions-Policy: accelerometer=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=()
+
+# Content-hashed by Astro's build, so a long immutable lifetime is safe: a
+# changed file gets a new filename, never a mutated one at the same URL.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# NOT content-hashed (filenames are stable), so a long TTL would strand a
+# replaced image in visitors' caches — 1h plus stale-while-revalidate keeps
+# it fast without that risk.
+/images/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/og/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/favicon.svg
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/favicon.ico
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/robots.txt
+  Cache-Control: public, max-age=3600
+
+/sitemap.xml
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Cache-Control: public, max-age=3600

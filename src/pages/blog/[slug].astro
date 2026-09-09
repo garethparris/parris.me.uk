@@ -2,7 +2,8 @@
 // src/pages/blog/[slug].astro
 import { getCollection, render } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import { getPostSlug } from '../../lib/blog';
+import { getPostSlug, formatPostDate } from '../../lib/blog';
+import { buildBlogPosting } from '../../lib/schema';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
@@ -14,10 +15,23 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
+const slug = getPostSlug(post);
+const { iso, display } = formatPostDate(post.data.pubDate);
+
+// Falls back to Astro.url when Astro.site is unset (e.g. under AstroContainer tests).
+const site = Astro.site ?? Astro.url;
+const schema = [buildBlogPosting(post.data, slug, site)];
 ---
-<Layout title={`${post.data.title} | Gareth Parris`} description={post.data.description}>
+<Layout
+  title={`${post.data.title} | Gareth Parris`}
+  description={post.data.description}
+  image={post.data.heroImage}
+  article={{ publishedTime: post.data.pubDate, modifiedTime: post.data.updatedDate }}
+  schema={schema}
+>
   <img src={post.data.heroImage} alt={post.data.title} style="width: 100%; max-height: 320px; object-fit: cover; border-radius: var(--radius);" />
   <h1>{post.data.title}</h1>
+  <p style="margin-bottom: var(--space-1);"><time datetime={iso}>{display}</time></p>
   <div style="margin-bottom: var(--space-2);">
     {post.data.tags.map((tag: string) => <span class="tag" style="margin-right: 4px;">{tag}</span>)}
   </div>

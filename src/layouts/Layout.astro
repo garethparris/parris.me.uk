@@ -3,15 +3,27 @@
 // Imported (not <link>ed) so Astro bundles and hashes it into the build
 // output; a literal /src/... href only resolves under the dev server.
 import '../styles/global.css';
+import { SITE, pageUrl } from '../lib/site';
+import { serializeJsonLd } from '../lib/schema';
 
 interface Props {
   title: string;
   description: string;
+  /** Root-relative or absolute; defaults to SITE.ogImage. */
+  image?: string;
+  /** Set for blog posts: switches og:type to "article" and emits article:*. */
+  article?: { publishedTime: Date; modifiedTime?: Date };
+  /** JSON-LD graph nodes for this page; omitted when there's nothing to say. */
+  schema?: object[];
 }
-const { title, description } = Astro.props;
+const { title, description, image, article, schema } = Astro.props;
 // Falls back to Astro.url when Astro.site is unset (e.g. in AstroContainer
-// tests, which don't load astro.config.mjs's `site` unless told to).
+// tests, which don't load astro.config.mjs's `site` unless told to) — so
+// tests must assert tag presence/prefix, not an exact absolute URL.
 const canonicalBase = Astro.site ?? Astro.url;
+const canonical = pageUrl(Astro.url.pathname, canonicalBase);
+const absoluteImage = new URL(image ?? SITE.ogImage, canonicalBase).toString();
+const iso = (d: Date) => d.toISOString();
 ---
 <!doctype html>
 <html lang="en">
@@ -20,20 +32,38 @@ const canonicalBase = Astro.site ?? Astro.url;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={new URL(Astro.url.pathname, canonicalBase)} />
+    <meta name="author" content={SITE.author} />
+    <meta name="robots" content="index,follow,max-image-preview:large" />
+    <meta name="theme-color" content={SITE.themeColor} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={SITE.siteName} />
+    <meta property="og:locale" content={SITE.locale} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta name="twitter:card" content="summary" />
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:image" content={absoluteImage} />
+    <meta property="og:image:alt" content={title} />
+    {article && <meta property="article:published_time" content={iso(article.publishedTime)} />}
+    {article?.modifiedTime && <meta property="article:modified_time" content={iso(article.modifiedTime)} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    {schema && schema.length > 0 && (
+      <script type="application/ld+json" set:html={serializeJsonLd(schema)} />
+    )}
   </head>
   <body>
     <header class="container site-header">
       <a href="/" class="brand">parris.me.uk</a>
       <nav class="site-nav">
-        <a href="/resume">Resume</a>
-        <a href="/blog">Blog</a>
-        <a href="/contact">Contact</a>
+        <a href="/resume/">Resume</a>
+        <a href="/blog/">Blog</a>
+        <a href="/contact/">Contact</a>
         <a href="https://linkedin.com/in/garethparris" rel="me noopener" target="_blank">LinkedIn</a>
       </nav>
     </header>

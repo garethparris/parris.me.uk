@@ -1,0 +1,34 @@
+name: CI
+
+# Note: Cloudflare's dashboard Git integration deploys straight off a push to
+# main, independently of this workflow — a red run here does not block that
+# deploy. The real gate is the dashboard build command (`npm ci && npm run
+# ci:build`, see package.json), which fails the Cloudflare build itself on a
+# failing check/test/build. This workflow exists to give fast, visible
+# feedback on every push and PR, not to gate the deploy.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .node-version
+          cache: npm
+
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: npm run build
+
+      # No credentials needed: validates wrangler.toml (and catches keys
+      # Wrangler silently ignores, like the observability.persist fields)
+      # without touching the live Worker.
+      - run: npx wrangler deploy --dry-run

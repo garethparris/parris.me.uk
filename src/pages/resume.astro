@@ -5,15 +5,27 @@ import { marked } from 'marked';
 import Layout from '../layouts/Layout.astro';
 import SkillTags from '../components/SkillTags.astro';
 import RoleEntry from '../components/RoleEntry.astro';
+import { buildPerson, buildProfilePage } from '../lib/schema';
 
 const [resume] = await getCollection('resume');
-const { summary, leadership, education, awards, certifications, skillGroups, roles, interests, recommendations } = resume.data;
+const { headline, summary, leadership, education, awards, certifications, skillGroups, roles, interests, recommendations } = resume.data;
 
 const currentRoles = roles.filter((r) => r.tier === 'current');
 const earlierRoles = roles.filter((r) => r.tier === 'earlier');
+// Named in the always-visible <summary> (Britdaq Ltd appears twice, so
+// deduped) rather than left only inside the collapsed content: these are
+// exactly the entity names a recruiter or an assistant searches for.
+const earlierCompanies = Array.from(new Set(earlierRoles.map((r) => r.company)));
+
+// Falls back to Astro.url when Astro.site is unset (e.g. under AstroContainer tests).
+const site = Astro.site ?? Astro.url;
+// Same buildPerson() call as index.astro, so both pages describe the same
+// @id — an assistant fetching only one of the two still gets the full Person.
+const schema = [buildProfilePage(resume.data, site), buildPerson(resume.data, site)];
 ---
-<Layout title="Resume | Gareth Parris" description={summary}>
+<Layout title="Resume | Gareth Parris" description={headline} image="/og/resume.png" schema={schema}>
   <h1>Resume</h1>
+  <p style="font-family: var(--font-mono); color: var(--color-accent-teal); font-size: 0.9rem;">{headline}</p>
 
   <section>
     <h2>Summary</h2>
@@ -37,7 +49,7 @@ const earlierRoles = roles.filter((r) => r.tier === 'earlier');
     ))}
     <details>
       <summary style="cursor: pointer; font-family: var(--font-mono); font-size: 0.8rem; color: var(--color-text-dim); padding: var(--space-1) 0;">
-        Earlier Career ({earlierRoles.length} roles, 1993-2021)
+        Earlier Career ({earlierRoles.length} roles, 1993-2021): {earlierCompanies.join(', ')}
       </summary>
       {earlierRoles.map((role) => (
         <RoleEntry role={role} html={marked.parse(role.body) as string} />

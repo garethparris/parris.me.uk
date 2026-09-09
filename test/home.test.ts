@@ -12,4 +12,11 @@ describe('Home page', () => {
     expect(result).toContain('CURRENT FOCUS');
     expect(result).toContain('SOC 2 renewal &amp; platform scalability');
   });
+
+  it('renders a <time> with a stable ISO datetime on the blog teaser cards', async () => {
+    const container = await AstroContainer.create();
+    const result = await container.renderToString(Home);
+
+    expect(result).toContain('<time datetime="2025-11-01"');
+  });
 });

@@ -4,12 +4,17 @@ import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 import BlogCard from '../../components/BlogCard.astro';
 import { getPostSlug } from '../../lib/blog';
+import { buildBlogIndexSchema } from '../../lib/schema';
 
 const posts = (await getCollection('blog')).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
 );
+
+// Falls back to Astro.url when Astro.site is unset (e.g. under AstroContainer tests).
+const site = Astro.site ?? Astro.url;
+const schema = [buildBlogIndexSchema(posts.map((post) => ({ data: post.data, slug: getPostSlug(post) })), site)];
 ---
-<Layout title="Blog | Gareth Parris" description="Blog posts on networking, hardware projects, and career highlights.">
+<Layout title="Blog | Gareth Parris" description="Blog posts on networking, hardware projects, and career highlights." image="/og/blog.png" schema={schema}>
   <h1>Blog</h1>
   <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-2);">
     {posts.map((post) => (
@@ -17,6 +22,7 @@ const posts = (await getCollection('blog')).sort(
         slug={getPostSlug(post)}
         title={post.data.title}
         category={post.data.category}
+        pubDate={post.data.pubDate}
         thumbImage={post.data.thumbImage}
       />
     ))}

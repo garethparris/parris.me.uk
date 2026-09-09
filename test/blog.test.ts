@@ -19,6 +19,16 @@ describe('Blog index', () => {
     expect(result).toContain('Finalist, 2025 Graham Impact Awards');
   });
 
+  it('renders a <time> with a stable ISO datetime for each post', async () => {
+    const container = await AstroContainer.create();
+    const result = await container.renderToString(BlogIndex);
+
+    // Asserting the ISO datetime attribute, not the localized display
+    // string, since the display string is ICU-dependent.
+    expect(result).toContain('<time datetime="2025-11-01"');
+    expect(result).toContain('<time datetime="2017-11-01"');
+  });
+
   it('sorts posts newest first', async () => {
     const posts = await getCollection('blog');
     const dates = posts
@@ -51,5 +61,6 @@ describe('Blog post page', () => {
     expect(result).toContain('Custom SoHo Server Rack with Ubiquity Unifi');
     expect(result).toContain('UniFi Dream Machine Pro');
     expect(result).toContain('Ubiquity');
+    expect(result).toContain('<time datetime="2020-07-01"');
   });
 });

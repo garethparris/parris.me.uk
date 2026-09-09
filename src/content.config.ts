@@ -3,9 +3,23 @@ import { defineCollection, z } from 'astro:content';
 const resume = defineCollection({
   type: 'content',
   schema: z.object({
+    // Short (<=160 char) description for the meta description tag and the
+    // JSON-LD Person/llms.txt summary. The `.max` makes an over-length value
+    // a build failure rather than a silently truncated SERP snippet — the
+    // long `summary` below stays intact for the on-page Summary section.
+    headline: z.string().max(160),
     summary: z.string(),
     leadership: z.string(),
     education: z.string(),
+    // Structured alongside the prose `education` string so JSON-LD's
+    // `alumniOf` never has to regex a sentence to find an institution name.
+    alumniOf: z.object({
+      name: z.string(),
+      url: z.string().url(),
+    }),
+    // Bumped whenever the CV is synced (see README's "Updating the Resume
+    // page"); feeds the sitemap's <lastmod> and JSON-LD's dateModified.
+    updated: z.date(),
     awards: z.array(z.string()),
     certifications: z.array(z.string()),
     skillGroups: z.array(
@@ -49,6 +63,10 @@ const blog = defineCollection({
     title: z.string(),
     description: z.string(),
     pubDate: z.date(),
+    // Only set when a post is materially revised after publishing. Feeds
+    // <lastmod>/article:modified_time/dateModified; falls back to pubDate
+    // everywhere it's read, so it's free when absent.
+    updatedDate: z.date().optional(),
     category: z.string(),
     tags: z.array(z.string()),
     // Full-size image for the post detail page hero.

@@ -57,7 +57,12 @@ Worker serves the built site and handles `POST /api/contact` itself.
 
 1. In the Cloudflare dashboard, create a Worker connected to the
    `garethparris/parris.me.uk` GitHub repo (Workers & Pages → Create an app → Import
-   a repository), build command `npm run build`, deploy command `npx wrangler deploy`.
+   a repository), build command `npm ci && npm run ci:build`, deploy command
+   `npx wrangler deploy`. Routing the dashboard's build through the repo-owned
+   `ci:build` script (check + test + build) means a failing test fails the
+   Cloudflare build itself, so nothing deploys — the separate GitHub Actions
+   workflow (`.github/workflows/ci.yml`) gives fast feedback on pushes and PRs
+   but does not gate this deploy on its own.
 2. Under the Worker's **Settings > Variables and Secrets** (the runtime one, not
    the separate "Build variables and secrets" section under Settings > Build -
    that one only reaches the CI shell during `npm run build`/`wrangler deploy`,
@@ -92,3 +97,5 @@ cutover is done and the site above is live; kept here as a record of that decisi
 ## License
 
 Code (Astro components, configuration, and build tooling) is MIT-licensed — see [`LICENSE`](LICENSE). The written content (resume, blog posts, and their images) is not covered by that license and is not licensed for reuse.
+
+`src/assets/fonts/JetBrainsMono-*.ttf` (used only at build time to render the OG share-card images, never shipped to the client) is licensed separately under the SIL Open Font License — see `src/assets/fonts/OFL.txt`.

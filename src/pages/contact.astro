@@ -8,7 +8,7 @@ import Layout from '../layouts/Layout.astro';
 // exposed to the client.
 const TURNSTILE_SITE_KEY = '0x4AAAAAAEqGUe9lxaCWLzfe';
 ---
-<Layout title="Contact | Gareth Parris" description="Get in touch.">
+<Layout title="Contact | Gareth Parris" description="Get in touch." image="/og/contact.png">
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <h1>Contact</h1>
   <form id="contact-form" method="POST" action="/api/contact" style="display: flex; flex-direction: column; gap: var(--space-2); max-width: 420px;">

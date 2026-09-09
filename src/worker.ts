@@ -5,6 +5,7 @@
 // to intercept the one route with server-side logic, the contact form.
 
 import { extractContactFields, verifyTurnstileToken } from './lib/contact';
+import { withSecurityHeaders } from './lib/security-headers';
 
 // MAILTRAP_API_TOKEN, CONTACT_TO_EMAIL and TURNSTILE_SECRET_KEY must be set
 // under the Worker's Settings > Variables and Secrets (runtime), not the
@@ -20,12 +21,20 @@ export interface Env {
   ASSETS: Fetcher;
 }
 
+/** JSON response helper: every prior response omitted Content-Type entirely. */
+function json(body: unknown, status: number, extraHeaders?: Record<string, string>): Response {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', ...extraHeaders },
+  });
+}
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   if (!env.MAILTRAP_API_TOKEN || !env.CONTACT_TO_EMAIL || !env.TURNSTILE_SECRET_KEY) {
     console.error(
       `Contact form misconfigured: MAILTRAP_API_TOKEN present=${!!env.MAILTRAP_API_TOKEN}, CONTACT_TO_EMAIL present=${!!env.CONTACT_TO_EMAIL}, TURNSTILE_SECRET_KEY present=${!!env.TURNSTILE_SECRET_KEY}`
     );
-    return new Response(JSON.stringify({ error: 'Contact form is not configured' }), { status: 500 });
+    return json({ error: 'Contact form is not configured' }, 500);
   }
 
   const formData = await request.formData();
@@ -37,13 +46,13 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     (await verifyTurnstileToken(turnstileToken, env.TURNSTILE_SECRET_KEY, request.headers.get('CF-Connecting-IP') ?? undefined));
 
   if (!turnstileValid) {
-    return new Response(JSON.stringify({ error: 'Verification failed, please try again' }), { status: 400 });
+    return json({ error: 'Verification failed, please try again' }, 400);
   }
 
   const fields = await extractContactFields(formData);
 
   if (!fields.ok) {
-    return new Response(JSON.stringify({ error: fields.error }), { status: 400 });
+    return json({ error: fields.error }, 400);
   }
 
   const mailtrapResponse = await fetch('https://send.api.mailtrap.io/api/send', {
@@ -64,20 +73,26 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   if (!mailtrapResponse.ok) {
     const body = await mailtrapResponse.text();
     console.error(`Mailtrap send failed: ${mailtrapResponse.status} ${body}`);
-    return new Response(JSON.stringify({ error: 'Failed to send' }), { status: 502 });
+    return json({ error: 'Failed to send' }, 502);
   }
 
-  return new Response(JSON.stringify({ ok: true }), { status: 200 });
+  return json({ ok: true }, 200);
 }
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname === '/api/contact' && request.method === 'POST') {
-      return handleContact(request, env);
+    // Matched on pathname first, then branched on method: previously this
+    // was a single `&&` check, so a non-POST request (e.g. a GET) silently
+    // fell through to the asset handler instead of getting a real 405.
+    if (url.pathname === '/api/contact') {
+      if (request.method !== 'POST') {
+        return withSecurityHeaders(json({ error: 'Method not allowed' }, 405, { Allow: 'POST' }));
+      }
+      return withSecurityHeaders(await handleContact(request, env));
     }
 
-    return env.ASSETS.fetch(request);
+    return withSecurityHeaders(await env.ASSETS.fetch(request));
   },
 };

@@ -10,20 +10,31 @@ main = "src/worker.ts"
 # `wrangler secret delete`.
 keep_vars = true
 
+# Disabled: today parris-me-uk.<subdomain>.workers.dev serves a full duplicate
+# of the site under a second hostname. Its canonical tag still points at
+# parris.me.uk, but there's no reason to leave the duplicate reachable.
+workers_dev = false
+
+# Static-asset requests are served without invoking this Worker by default
+# (Cloudflare's asset router checks for a matching file first) — so this
+# section only changes behaviour for requests that don't match a file.
 [assets]
 directory = "./dist"
 binding = "ASSETS"
+# A custom 404 page (src/pages/404.astro) rather than the bare asset router's
+# default for any path matching no file.
+not_found_handling = "404-page"
+# /api/* always invokes this Worker regardless of not_found_handling —
+# otherwise a POST /api/contact could plausibly be caught by the asset
+# router's 404 page before reaching handleContact. Cloudflare's docs don't
+# state the precedence between the two for a non-asset path, so this pins it
+# rather than relying on undocumented behaviour. Costs nothing: /api/* already
+# always reaches the Worker (nothing under that path is a static file).
+run_worker_first = ["/api/*"]
 
 [observability]
-enabled = false
-
-[observability.logs]
 enabled = true
 head_sampling_rate = 1
-invocation_logs = true
-persist = true
 
-[observability.traces]
-enabled = false
-head_sampling_rate = 1
-persist = true
+[observability.logs]
+invocation_logs = true
