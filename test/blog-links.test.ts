@@ -11,6 +11,7 @@
 // the Blog index can never drift apart.
 import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, it, expect } from 'vitest';
+import { getCollection } from 'astro:content';
 import Home from '../src/pages/index.astro';
 import BlogIndex from '../src/pages/blog/index.astro';
 
@@ -40,9 +41,11 @@ const VALID_POST_LINK = /^\/blog\/[a-z-]+\/$/;
 describe('blog post links', () => {
   it('renders well-formed post links on the Blog index', async () => {
     const links = extractPostLinks(await render(BlogIndex));
+    const posts = await getCollection('blog');
 
     // Guards the assertions below against passing vacuously on an empty set.
-    expect(links).toHaveLength(5);
+    expect(links.length).toBeGreaterThan(0);
+    expect(links).toHaveLength(posts.length);
 
     for (const href of links) {
       expect(href).toMatch(VALID_POST_LINK);

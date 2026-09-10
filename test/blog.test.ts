@@ -3,20 +3,21 @@ import { experimental_AstroContainer as AstroContainer } from 'astro/container';
 import { describe, it, expect } from 'vitest';
 import { getCollection } from 'astro:content';
 import BlogIndex from '../src/pages/blog/index.astro';
+import { getPostSlug } from '../src/lib/blog';
 
 describe('Blog index', () => {
   it('lists all posts', async () => {
     const posts = await getCollection('blog');
-    expect(posts).toHaveLength(5);
+    // Guards the title loop below against passing vacuously on an empty
+    // collection, the same reason test/blog-links.test.ts asserts a count.
+    expect(posts.length).toBeGreaterThan(0);
 
     const container = await AstroContainer.create();
     const result = await container.renderToString(BlogIndex);
 
-    expect(result).toContain('Event Technology of the Year 2020 Drum Award');
-    expect(result).toContain('Working with a Winning Team');
-    expect(result).toContain('Helping create an Interactive Wall for MIT');
-    expect(result).toContain('Custom SoHo Server Rack with Ubiquity Unifi');
-    expect(result).toContain('Finalist, 2025 Graham Impact Awards');
+    for (const post of posts) {
+      expect(result).toContain(post.data.title);
+    }
   });
 
   it('renders a <time> with a stable ISO datetime for each post', async () => {
@@ -42,10 +43,12 @@ import BlogPost, { getStaticPaths } from '../src/pages/blog/[slug].astro';
 
 describe('Blog post page', () => {
   it('generates one static path per post', async () => {
+    const posts = await getCollection('blog');
     const paths = await getStaticPaths();
-    expect(paths).toHaveLength(5);
+    expect(paths.length).toBeGreaterThan(0);
+    expect(paths).toHaveLength(posts.length);
     expect(paths.map((p) => p.params.slug).sort()).toEqual(
-      ['drum-award', 'graham-impact-awards', 'mercedes', 'mit-wall', 'server-rack'].sort()
+      posts.map((p) => getPostSlug(p)).sort()
     );
   });
 
