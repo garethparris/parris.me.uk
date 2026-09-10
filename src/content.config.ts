@@ -73,6 +73,16 @@ const blog = defineCollection({
     heroImage: z.string(),
     // Smaller variant used for the 120px-tall cards on the blog index.
     thumbImage: z.string(),
+    // Set once the post has been shared on LinkedIn, so the post page can
+    // offer a "Discuss on LinkedIn" link. Optional and absent by default: a
+    // post is published to the site first and shared on LinkedIn second. No
+    // www. requirement: SITE.sameAs (src/lib/site.ts) already links the bare
+    // https://linkedin.com/in/garethparris form, so this accepts either.
+    linkedInUrl: z
+      .string()
+      .url()
+      .regex(/^https:\/\/(www\.)?linkedin\.com\//, 'must be a linkedin.com URL')
+      .optional(),
   }),
 });
 

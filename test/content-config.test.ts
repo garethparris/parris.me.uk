@@ -57,3 +57,26 @@ describe('blog updatedDate field', () => {
     expect(() => blogSchema.shape.updatedDate.parse(new Date('2026-01-01'))).not.toThrow();
   });
 });
+
+describe('blog linkedInUrl field', () => {
+  const blogSchema = collections.blog.schema as any;
+
+  it('is optional', () => {
+    expect(() => blogSchema.shape.linkedInUrl.parse(undefined)).not.toThrow();
+  });
+
+  it('accepts a linkedin.com URL, with or without www.', () => {
+    expect(() =>
+      blogSchema.shape.linkedInUrl.parse('https://www.linkedin.com/posts/garethparris_activity-1234567890')
+    ).not.toThrow();
+    expect(() => blogSchema.shape.linkedInUrl.parse('https://linkedin.com/feed/update/urn:li:activity:1234567890')).not.toThrow();
+  });
+
+  it('rejects a non-URL', () => {
+    expect(() => blogSchema.shape.linkedInUrl.parse('not a url')).toThrow();
+  });
+
+  it('rejects a URL that is not on linkedin.com', () => {
+    expect(() => blogSchema.shape.linkedInUrl.parse('https://example.com/posts/123')).toThrow();
+  });
+});

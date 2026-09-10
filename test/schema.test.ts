@@ -116,6 +116,17 @@ describe('buildBlogPosting', () => {
     const updated = buildBlogPosting({ ...post, updatedDate: new Date('2025-12-01') }, 'graham-impact-awards', SITE_URL);
     expect(updated.dateModified).toBe('2025-12-01T00:00:00.000Z');
   });
+
+  it('omits discussionUrl when the post has no linkedInUrl', () => {
+    const posting = buildBlogPosting(post, 'graham-impact-awards', SITE_URL);
+    expect(posting).not.toHaveProperty('discussionUrl');
+  });
+
+  it('sets discussionUrl from linkedInUrl when present', () => {
+    const linkedInUrl = 'https://www.linkedin.com/posts/garethparris_activity-1234567890';
+    const posting = buildBlogPosting({ ...post, linkedInUrl }, 'graham-impact-awards', SITE_URL);
+    expect(posting.discussionUrl).toBe(linkedInUrl);
+  });
 });
 
 describe('buildBlogIndexSchema', () => {

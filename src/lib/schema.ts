@@ -111,6 +111,9 @@ export function buildBlogPosting(post: BlogData, slug: string, site: URL) {
     articleSection: post.category,
     author: { '@id': personId(site) },
     publisher: { '@id': personId(site) },
+    // discussionUrl is a real schema.org CreativeWork property; only emitted
+    // once the post has been shared, matching post.linkedInUrl's own default.
+    ...(post.linkedInUrl ? { discussionUrl: post.linkedInUrl } : {}),
   };
 }
 

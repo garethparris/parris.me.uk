@@ -63,4 +63,32 @@ describe('Blog post page', () => {
     expect(result).toContain('Ubiquity');
     expect(result).toContain('<time datetime="2020-07-01"');
   });
+
+  it('does not render a "Discuss on LinkedIn" link when linkedInUrl is absent', async () => {
+    const container = await AstroContainer.create();
+    const paths = await getStaticPaths();
+    const serverRackPath = paths.find((p) => p.params.slug === 'server-rack')!;
+
+    const result = await container.renderToString(BlogPost, { props: serverRackPath.props });
+
+    expect(result).not.toContain('Discuss this post on LinkedIn');
+  });
+
+  it('renders a "Discuss on LinkedIn" link when linkedInUrl is present', async () => {
+    const container = await AstroContainer.create();
+    const paths = await getStaticPaths();
+    const serverRackPath = paths.find((p) => p.params.slug === 'server-rack')!;
+    const linkedInUrl = 'https://www.linkedin.com/posts/garethparris_activity-1234567890';
+    // Spread the real entry rather than constructing one from scratch: render()
+    // needs the entry's actual rendering internals, which a from-scratch object
+    // wouldn't carry.
+    const propsWithLinkedIn = {
+      post: { ...serverRackPath.props.post, data: { ...serverRackPath.props.post.data, linkedInUrl } },
+    };
+
+    const result = await container.renderToString(BlogPost, { props: propsWithLinkedIn });
+
+    expect(result).toContain('Discuss this post on LinkedIn');
+    expect(result).toContain(`href="${linkedInUrl}"`);
+  });
 });
