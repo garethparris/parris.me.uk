@@ -68,12 +68,20 @@ export default defineConfig({
       },
     },
   },
-  // Pre-empts a landmine rather than fixing one: Shiki (Astro's default code
-  // fence highlighter) emits inline styles that Astro's CSP explicitly can't
-  // support. There are no code fences in src/content/** today, so this is
-  // currently a no-op — but the first post with a ``` fence would otherwise
-  // silently break CSP.
-  markdown: { syntaxHighlight: false },
+  // Shiki (Astro's default code fence highlighter) emits inline `style="..."`
+  // on the generated `<pre>`/`<span>` elements, not a `<style>` element, so
+  // it's governed by CSP's style-src-attr, not the build-time-hashed
+  // style-src(-elem) directive above. That's already set to
+  // `'unsafe-inline'` for kind: 'attribute' (see styleDirective below),
+  // because the site's own hand-written pages already use inline
+  // style="..." attributes throughout (contact, resume, blog post, and the
+  // Layout footer). So Shiki was never actually blocked: this was disabled
+  // out of an over-cautious reading of that directive, not a verified
+  // conflict. Confirmed by building a scratch post with a fenced code block
+  // and inspecting the emitted CSP meta tag: it renders cleanly, and
+  // test/code-highlight.test.ts pins the two settings this depends on so a
+  // future CSP tightening can't silently break code fences again.
+  markdown: { syntaxHighlight: 'shiki' },
   // `astro sync` (used as a pretest step) writes the content data store to
   // `cacheDir` (default: node_modules/.astro), but Vitest always resolves
   // Vite's `command` as "serve" and therefore reads the data store from the
