@@ -38,4 +38,9 @@ const schema = [buildBlogPosting(post.data, slug, site)];
   <article>
     <Content />
   </article>
+  {post.data.linkedInUrl && (
+    <p style="margin-top: var(--space-3);">
+      <a href={post.data.linkedInUrl} rel="noopener nofollow">Discuss this post on LinkedIn</a>
+    </p>
+  )}
 </Layout>
