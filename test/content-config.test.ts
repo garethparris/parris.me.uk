@@ -46,6 +46,18 @@ describe('resume headline field', () => {
   });
 });
 
+describe('blog description field', () => {
+  const descriptionSchema = (collections.blog.schema as any).shape.description;
+
+  it('accepts a short description', () => {
+    expect(() => descriptionSchema.parse('A short, real sentence.')).not.toThrow();
+  });
+
+  it('rejects a description over 160 characters, so an over-length meta description fails the build rather than getting silently truncated', () => {
+    expect(() => descriptionSchema.parse('x'.repeat(161))).toThrow();
+  });
+});
+
 describe('blog updatedDate field', () => {
   const blogSchema = collections.blog.schema as any;
 

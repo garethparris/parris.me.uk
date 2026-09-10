@@ -61,7 +61,11 @@ const blog = defineCollection({
   type: 'content',
   schema: z.object({
     title: z.string(),
-    description: z.string(),
+    // Short (<=160 char) description for the meta description tag, RSS, and
+    // JSON-LD BlogPosting. Same rationale as resume.headline above: an
+    // over-length value should fail the build rather than get silently
+    // truncated in a search result.
+    description: z.string().max(160),
     pubDate: z.date(),
     // Only set when a post is materially revised after publishing. Feeds
     // <lastmod>/article:modified_time/dateModified; falls back to pubDate
