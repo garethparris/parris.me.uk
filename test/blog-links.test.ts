@@ -42,7 +42,7 @@ describe('blog post links', () => {
     const links = extractPostLinks(await render(BlogIndex));
 
     // Guards the assertions below against passing vacuously on an empty set.
-    expect(links).toHaveLength(5);
+    expect(links).toHaveLength(6);
 
     for (const href of links) {
       expect(href).toMatch(VALID_POST_LINK);
